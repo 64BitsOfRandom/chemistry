@@ -25,13 +25,14 @@ CREATE TABLE  IF NOT EXISTS substances
     id        INTEGER IDENTITY  PRIMARY KEY,
     formulaId INTEGER NOT NULL,
     classId   INTEGER NOT NULL,
-    foreign key (classId) REFERENCES classes(id) ON DELETE CASCADE,
-    foreign key (formulaId) REFERENCES formulas(id) ON DELETE CASCADE
+    FOREIGN KEY (classId) REFERENCES classes(id) ON DELETE CASCADE,
+    FOREIGN KEY (formulaId) REFERENCES formulas(id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS SYSTEM_LOG(
-                                         id INTEGER IDENTITY PRIMARY KEY,
-                                         timestamp DATETIME NOT NULL,
-                                         message VARCHAR(128),
-                                         msgType varchar(16) NOT NULL
+    id INTEGER IDENTITY PRIMARY KEY,
+    time DATETIME NOT NULL,
+    logger VARCHAR(32) NOT NULL,
+    type varchar(16) NOT NULL,
+    message VARCHAR(256) NOT NULL
 );
