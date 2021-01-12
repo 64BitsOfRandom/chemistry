@@ -4,6 +4,8 @@ import com.example.Chemistry.model.Formula;
 import com.example.Chemistry.model.Ion;
 import com.example.Chemistry.model.Substance;
 import com.example.Chemistry.model.dao.interfaces.IAlchemyDAO;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,6 +14,7 @@ import java.sql.SQLDataException;
 import java.sql.SQLException;
 
 public class AlchemyDAO implements IAlchemyDAO {
+    private static final Logger log = LogManager.getLogger(AlchemyDAO.class);
     //tables
     public static final String FORMULA_TABLE_NAME = "formulas";
     public static final String IONS_TABLE_NAME = "ions";
@@ -36,8 +39,9 @@ public class AlchemyDAO implements IAlchemyDAO {
             statement.setInt(3, substance.getClassId());
             isSubstanceAdded = statement.execute();
         } catch (SQLException ex) {
-            //TODO: log errors
+            log.error("Failed to add substance!");
         }
+        log.info("Substance {} added", substance.getFormula());
         return isSubstanceAdded;
     }
 
@@ -51,8 +55,9 @@ public class AlchemyDAO implements IAlchemyDAO {
             statement.setString(4, formula.getNotation());
             isFormulaAdded = statement.execute();
         } catch (SQLException ex) {
-            //TODO: log errors
+            log.error("Failed to add formula!");
         }
+        log.info("Formula {} added", formula.getNotation());
         return isFormulaAdded;
     }
 
@@ -66,8 +71,9 @@ public class AlchemyDAO implements IAlchemyDAO {
             statement.setString(4, ion.getType().name());
             isIonAdded = statement.execute();
         } catch (SQLException ex) {
-            //TODO: log errors
+            log.error("Failed to add Ion!");
         }
+        log.info("Ion {} added", ion.getNotation());
         return isIonAdded;
     }
 
@@ -89,8 +95,10 @@ public class AlchemyDAO implements IAlchemyDAO {
                 throw new SQLDataException("Inconsistent data acquired. Check database");
             }
         } catch (SQLException ex) {
-            //TODO: write to log
+            log.error("Failed to get Formula by id #{}!", formulaId);
         }
+        if(formula != null) log.info("Retrieved formula #{} is fine", formulaId);
+        else log.warn("Something wrong with #{}. Check is such formula even exists", formulaId);
         return formula;
     }
 
@@ -111,8 +119,10 @@ public class AlchemyDAO implements IAlchemyDAO {
                 throw new SQLDataException("Inconsistent data acquired. Check database");
             }
         } catch (SQLException ex) {
-            //TODO: write to log
+            log.error("Failed to get Formula by id #{}!", substanceId);
         }
+        if(substance == null) log.warn("Something wrong with substance #{}. Check is such substance even exists", substanceId);
+        else log.info("Retrieved substance #{} is fine, go on", substanceId);
         return substance;
     }
 
@@ -136,8 +146,10 @@ public class AlchemyDAO implements IAlchemyDAO {
                 throw new SQLDataException("Inconsistent data acquired. Check database");
             }
         } catch (SQLException ex) {
-            //TODO: write to log
+            log.error("Failed to get Ion by id #{}!", ionId);
         }
+        if(ion == null) log.warn("Something wrong with Ion #{}. Check is such Ion even exists", ionId);
+        else log.info("Retrieved substance #{} is fine, go on", ionId);
         return ion;
     }
 
@@ -148,9 +160,11 @@ public class AlchemyDAO implements IAlchemyDAO {
              PreparedStatement statement = connection.prepareStatement(deleteQuery)) {
             statement.setString(1, tableName);
             statement.setInt(2, id);
+            isDeleted = statement.execute();
         } catch (SQLException ex) {
-            //TODO write to log
+            log.error("Unable to delete entity #{} from {}!", id, tableName);
         }
+        if(isDeleted) log.info("Entity #{} deleted from {} successfully", id, tableName);
         return isDeleted;
     }
 
