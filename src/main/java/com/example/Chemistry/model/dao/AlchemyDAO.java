@@ -22,7 +22,7 @@ public class AlchemyDAO implements IAlchemyDAO {
     public static final String ANION_COL_NAME = "anion";
     //queries
     private static final String selectQuery = "SELECT * FROM ? WHERE id = ?";
-    private static final String deleteQuery = "DELETE * FROM ? WHERE id = ?";
+    private static final String deleteQuery = "DELETE FROM ? WHERE id = ?";
     private static final String substanceInsertQuery = "INSERT INTO substances VALUES(?, ?, ?)";
     private static final String formulaInsertQuery = "INSERT INTO formulas VALUES(?, ?, ?, ?)";
     private static final String ionInsertQuery = "INSERT INTO ions VALUES(?, ?, ?, ?)";
@@ -30,24 +30,27 @@ public class AlchemyDAO implements IAlchemyDAO {
     @Override
     public boolean addSubstance(Substance substance) {
         boolean isSubstanceAdded = false;
-        try(Connection connection = null;
-        PreparedStatement statement = connection.prepareStatement(substanceInsertQuery)){
-            //TODO:add logic
+        try (Connection connection = null;
+             PreparedStatement statement = connection.prepareStatement(substanceInsertQuery)) {
+            statement.setString(2, substance.getFormula());
+            statement.setInt(3, substance.getClassId());
             isSubstanceAdded = statement.execute();
-        }catch (SQLException ex){
+        } catch (SQLException ex) {
             //TODO: log errors
         }
         return isSubstanceAdded;
     }
 
     @Override
-    public boolean addFormula(Formula substance) {
+    public boolean addFormula(Formula formula) {
         boolean isFormulaAdded = false;
-        try(Connection connection = null;
-            PreparedStatement statement = connection.prepareStatement(formulaInsertQuery)){
-            //TODO:add logic
+        try (Connection connection = null;
+             PreparedStatement statement = connection.prepareStatement(formulaInsertQuery)) {
+            statement.setInt(2, formula.getAnionId());
+            statement.setInt(3, formula.getCationId());
+            statement.setString(4, formula.getNotation());
             isFormulaAdded = statement.execute();
-        }catch (SQLException ex){
+        } catch (SQLException ex) {
             //TODO: log errors
         }
         return isFormulaAdded;
@@ -56,11 +59,13 @@ public class AlchemyDAO implements IAlchemyDAO {
     @Override
     public boolean addIon(Ion ion) {
         boolean isIonAdded = false;
-        try(Connection connection = null;
-            PreparedStatement statement = connection.prepareStatement(ionInsertQuery)){
-            //TODO:add logic
+        try (Connection connection = null;
+             PreparedStatement statement = connection.prepareStatement(ionInsertQuery)) {
+            statement.setInt(2, ion.getValence());
+            statement.setString(3, ion.getNotation());
+            statement.setString(4, ion.getType().name());
             isIonAdded = statement.execute();
-        }catch (SQLException ex){
+        } catch (SQLException ex) {
             //TODO: log errors
         }
         return isIonAdded;
@@ -71,7 +76,7 @@ public class AlchemyDAO implements IAlchemyDAO {
         Formula formula = null;
         try (Connection connection = null;
              PreparedStatement statement = connection.prepareStatement(selectQuery)) {
-            statement.setString(1,FORMULA_TABLE_NAME); //TODO: find more convenient way
+            statement.setString(1, FORMULA_TABLE_NAME); //TODO: find more convenient way
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 formula = Formula.builder()
@@ -92,8 +97,8 @@ public class AlchemyDAO implements IAlchemyDAO {
     @Override
     public Substance getSubstanceById(int substanceId) {
         Substance substance = null;
-        try(Connection connection = null; //TODO: init connect
-            PreparedStatement statement = connection.prepareStatement(selectQuery)){
+        try (Connection connection = null; //TODO: init connect
+             PreparedStatement statement = connection.prepareStatement(selectQuery)) {
             statement.setInt(1, substanceId);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
@@ -102,10 +107,10 @@ public class AlchemyDAO implements IAlchemyDAO {
                         .formula(resultSet.getString("formula"))
                         .classId(resultSet.getInt("classId")).build();
             }
-            if(!isSubstanceConsistent(substance)){
+            if (!isSubstanceConsistent(substance)) {
                 throw new SQLDataException("Inconsistent data acquired. Check database");
             }
-        }catch (SQLException ex){
+        } catch (SQLException ex) {
             //TODO: write to log
         }
         return substance;
@@ -116,7 +121,7 @@ public class AlchemyDAO implements IAlchemyDAO {
         Ion ion = null;
         try (Connection connection = null;
              PreparedStatement statement = connection.prepareStatement(selectQuery)) {
-            statement.setString(1,IONS_TABLE_NAME);
+            statement.setString(1, IONS_TABLE_NAME);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 ion = Ion.builder()
@@ -137,38 +142,36 @@ public class AlchemyDAO implements IAlchemyDAO {
     }
 
     @Override
-    public boolean deleteEntityById(String entity, int id) {
+    public boolean deleteEntityById(String tableName, int id) {
         boolean isDeleted = false;
-        String deleteQuery;
-        switch (entity){
-            entity ->
-        }
-        try(Connection connection = null;
-        PreparedStatement statement = connection.prepareStatement()){
-            switch ()
-        }catch (SQLException ex){
+        try (Connection connection = null;
+             PreparedStatement statement = connection.prepareStatement(deleteQuery)) {
+            statement.setString(1, tableName);
+            statement.setInt(2, id);
+        } catch (SQLException ex) {
             //TODO write to log
         }
         return isDeleted;
     }
 
 
-    private boolean isSubstanceConsistent(Substance substance){
+    private boolean isSubstanceConsistent(Substance substance) {
         return substance != null
                 && substance.getId() > 0
                 && !substance.getFormula().isBlank();
     }
+
     private boolean isFormulaConsistent(Formula formula) {
         return formula != null
                 && !formula.getNotation().isBlank()
                 && formula.getAnionId() > 0
                 && formula.getCationId() > 0;
     }
-    private boolean isIonConsistent(Ion ion){
+
+    private boolean isIonConsistent(Ion ion) {
         return ion != null
                 && ion.getId() > 0
                 && !ion.getNotation().isBlank()
                 && ion.getValence() > 0;
     }
 }
-enum Entity{ion,formula,substance}

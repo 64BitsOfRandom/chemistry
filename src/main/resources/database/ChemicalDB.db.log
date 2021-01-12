@@ -1,0 +1,44 @@
+/*C4*/SET SCHEMA PUBLIC
+CREATE TABLE ions\u000d\u000a(\u000d\u000a    id       INT PRIMARY KEY,\u000d\u000a    valence  INT NOT NULL,\u000d\u000a    notation VARCHAR(32),\u000d\u000a    type     VARCHAR(32)\u000d\u000a)
+CREATE TABLE formulas\u000d\u000a(\u000d\u000a    id       INT PRIMARY KEY,\u000d\u000a    anion    int NOT NULL,\u000d\u000a    cation   int NOT NULL,\u000d\u000a    notation VARCHAR(32)\u000d\u000a)
+CREATE TABLE substances\u000d\u000a(\u000d\u000a    id        INT PRIMARY KEY,\u000d\u000a    formulaId INT NOT NULL,\u000d\u000a    classId   INT NOT NULL\u000d\u000a)
+CREATE TABLE classes\u000d\u000a(\u000d\u000a    id   INT PRIMARY KEY,\u000d\u000a    name VARCHAR(32)\u000d\u000a)
+alter table CLASSES alter column ID identity
+drop table CLASSES
+drop table FORMULAS
+drop table IONS
+drop table SUBSTANCES
+CREATE TABLE ions\u000d\u000a(\u000d\u000a    id       INTEGER IDENTITY PRIMARY KEY,\u000d\u000a    valence  INTEGER NOT NULL,\u000d\u000a    notation VARCHAR(32),\u000d\u000a    type     VARCHAR(32)\u000d\u000a)
+CREATE TABLE formulas\u000d\u000a(\u000d\u000a    id       INTEGER IDENTITY  PRIMARY KEY,\u000d\u000a    anion    INTEGER NOT NULL,\u000d\u000a    cation   INTEGER NOT NULL,\u000d\u000a    notation VARCHAR(32)\u000d\u000a)
+CREATE TABLE substances\u000d\u000a(\u000d\u000a    id        INTEGER IDENTITY  PRIMARY KEY,\u000d\u000a    formulaId INTEGER NOT NULL,\u000d\u000a    classId   INTEGER NOT NULL\u000d\u000a)
+CREATE TABLE classes\u000d\u000a(\u000d\u000a    id   INTEGER IDENTITY PRIMARY KEY,\u000d\u000a    name VARCHAR(32)\u000d\u000a)
+set schema PUBLIC
+set schema PUBLIC
+set schema PUBLIC
+alter table SUBSTANCES\u000a\u0009add constraint SUBSTANCES_CLASSES_ID_FK\u000a\u0009\u0009foreign key (ID) references CLASSES\u000a\u0009\u0009\u0009on update cascade on delete cascade
+alter table SUBSTANCES\u000a    drop column CLASSID
+alter constraint SUBSTANCES_CLASSES_ID_FK rename to CLASSES
+drop table SUBSTANCES
+CREATE TABLE substances\u000d\u000a(\u000d\u000a    id        INTEGER IDENTITY  PRIMARY KEY,\u000d\u000a    formulaId INTEGER NOT NULL,\u000d\u000a    classId   INTEGER NOT NULL\u000d\u000a)
+drop table CLASSES
+drop table FORMULAS
+drop table IONS
+drop table SUBSTANCES
+CREATE TABLE ions\u000d\u000a(\u000d\u000a    id       INTEGER IDENTITY PRIMARY KEY,\u000d\u000a    valence  INTEGER NOT NULL,\u000d\u000a    notation VARCHAR(32),\u000d\u000a    type     VARCHAR(32)\u000d\u000a)
+CREATE TABLE formulas\u000d\u000a(\u000d\u000a    id       INTEGER IDENTITY  PRIMARY KEY,\u000d\u000a    anion    INTEGER NOT NULL,\u000d\u000a    cation   INTEGER NOT NULL,\u000d\u000a    notation VARCHAR(32)\u000d\u000a)
+CREATE TABLE IF NOT EXISTS ions\u000d\u000a(\u000d\u000a    id       INTEGER IDENTITY PRIMARY KEY,\u000d\u000a    valence  INTEGER NOT NULL,\u000d\u000a    notation VARCHAR(32),\u000d\u000a    type     VARCHAR(32)\u000d\u000a)
+CREATE TABLE  IF NOT EXISTS formulas\u000d\u000a(\u000d\u000a    id       INTEGER IDENTITY  PRIMARY KEY,\u000d\u000a    anion    INTEGER NOT NULL,\u000d\u000a    cation   INTEGER NOT NULL,\u000d\u000a    notation VARCHAR(32)\u000d\u000a)
+drop table FORMULAS
+drop table IONS
+CREATE TABLE  IF NOT EXISTS classes\u000d\u000a(\u000d\u000a    id   INTEGER IDENTITY PRIMARY KEY,\u000d\u000a    name VARCHAR(32)\u000d\u000a)
+CREATE TABLE IF NOT EXISTS ions\u000d\u000a(\u000d\u000a    id       INTEGER IDENTITY PRIMARY KEY,\u000d\u000a    valence  INTEGER NOT NULL,\u000d\u000a    notation VARCHAR(32),\u000d\u000a    type     VARCHAR(32)\u000d\u000a)
+CREATE TABLE  IF NOT EXISTS formulas\u000d\u000a(\u000d\u000a    id       INTEGER IDENTITY  PRIMARY KEY,\u000d\u000a    anion    INTEGER NOT NULL,\u000d\u000a    cation   INTEGER NOT NULL,\u000d\u000a    notation VARCHAR(32)\u000d\u000a)
+CREATE TABLE  IF NOT EXISTS substances\u000d\u000a(\u000d\u000a    id        INTEGER IDENTITY  PRIMARY KEY,\u000d\u000a    formulaId INTEGER NOT NULL,\u000d\u000a    classId   INTEGER NOT NULL,\u000d\u000a    foreign key (classId) REFERENCES classes(id) ON DELETE CASCADE\u000d\u000a)
+drop table FORMULAS
+drop table IONS
+drop table SUBSTANCES
+drop table CLASSES
+CREATE TABLE  IF NOT EXISTS classes\u000d\u000a(\u000d\u000a    id   INTEGER IDENTITY PRIMARY KEY,\u000d\u000a    name VARCHAR(32)\u000d\u000a)
+CREATE TABLE IF NOT EXISTS ions\u000d\u000a(\u000d\u000a    id       INTEGER IDENTITY PRIMARY KEY,\u000d\u000a    valence  INTEGER NOT NULL,\u000d\u000a    notation VARCHAR(32),\u000d\u000a    type     VARCHAR(32)\u000d\u000a)
+CREATE TABLE  IF NOT EXISTS formulas\u000d\u000a(\u000d\u000a    id       INTEGER IDENTITY  PRIMARY KEY,\u000d\u000a    anion    INTEGER NOT NULL,\u000d\u000a    cation   INTEGER NOT NULL,\u000d\u000a    notation VARCHAR(32),\u000d\u000a    foreign key  (anion) REFERENCES  ions(id) ON DELETE CASCADE,\u000d\u000a    foreign key  (cation) REFERENCES  ions(id) ON DELETE CASCADE\u000d\u000a)
+CREATE TABLE  IF NOT EXISTS substances\u000d\u000a(\u000d\u000a    id        INTEGER IDENTITY  PRIMARY KEY,\u000d\u000a    formulaId INTEGER NOT NULL,\u000d\u000a    classId   INTEGER NOT NULL,\u000d\u000a    foreign key (classId) REFERENCES classes(id) ON DELETE CASCADE,\u000d\u000a    foreign key (formulaId) REFERENCES formulas(id) ON DELETE CASCADE\u000d\u000a)
