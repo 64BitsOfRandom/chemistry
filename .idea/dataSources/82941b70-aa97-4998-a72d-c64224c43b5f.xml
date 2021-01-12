@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="ChemicalDB">
+  <database-model serializer="dbm" dbms="HSQLDB" family-id="HSQLDB" format-version="4.20">
+    <root id="1">
+      <ServerVersion>2.4.0</ServerVersion>
+    </root>
+    <database id="2" parent="1" name="PUBLIC">
+      <Current>1</Current>
+    </database>
+    <schema id="3" parent="2" name="INFORMATION_SCHEMA"/>
+    <schema id="4" parent="2" name="PUBLIC">
+      <Current>1</Current>
+    </schema>
+    <schema id="5" parent="2" name="SYSTEM_LOBS"/>
+    <table id="6" parent="4" name="CLASSES"/>
+    <table id="7" parent="4" name="FORMULAS"/>
+    <table id="8" parent="4" name="IONS"/>
+    <table id="9" parent="4" name="SUBSTANCES"/>
+    <table id="10" parent="4" name="SYSTEM_LOG"/>
+    <column id="11" parent="6" name="ID">
+      <Position>1</Position>
+      <DataType>INTEGER|4s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>null</SequenceIdentity>
+    </column>
+    <column id="12" parent="6" name="NAME">
+      <Position>2</Position>
+      <DataType>VARCHAR(32)|12s</DataType>
+    </column>
+    <index id="13" parent="6" name="SYS_IDX_SYS_PK_10174_10175">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="14" parent="6" name="SYS_PK_10174">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="15" parent="7" name="ID">
+      <Position>1</Position>
+      <DataType>INTEGER|4s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>null</SequenceIdentity>
+    </column>
+    <column id="16" parent="7" name="ANION">
+      <Position>2</Position>
+      <DataType>INTEGER|4s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="17" parent="7" name="CATION">
+      <Position>3</Position>
+      <DataType>INTEGER|4s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="18" parent="7" name="NOTATION">
+      <Position>4</Position>
+      <DataType>VARCHAR(32)|12s</DataType>
+    </column>
+    <index id="19" parent="7" name="SYS_IDX_SYS_PK_10180_10185">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="20" parent="7" name="SYS_IDX_SYS_FK_10183_10188">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ANION</ColNames>
+    </index>
+    <index id="21" parent="7" name="SYS_IDX_SYS_FK_10184_10190">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>CATION</ColNames>
+    </index>
+    <key id="22" parent="7" name="SYS_PK_10180">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="23" parent="7" name="SYS_FK_10183">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ANION</ColNames>
+      <RefTableName>IONS</RefTableName>
+      <RefKeyName>SYS_PK_10668</RefKeyName>
+      <RefColNames>ID</RefColNames>
+      <OnDelete>cascade</OnDelete>
+    </foreign-key>
+    <foreign-key id="24" parent="7" name="SYS_FK_10184">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>CATION</ColNames>
+      <RefTableName>IONS</RefTableName>
+      <RefKeyName>SYS_PK_10668</RefKeyName>
+      <RefColNames>ID</RefColNames>
+      <OnDelete>cascade</OnDelete>
+    </foreign-key>
+    <column id="25" parent="8" name="ID">
+      <Position>1</Position>
+      <DataType>INTEGER|4s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>null</SequenceIdentity>
+    </column>
+    <column id="26" parent="8" name="VALENCE">
+      <Position>2</Position>
+      <DataType>INTEGER|4s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="27" parent="8" name="NOTATION">
+      <Position>3</Position>
+      <DataType>VARCHAR(32)|12s</DataType>
+    </column>
+    <column id="28" parent="8" name="TYPE">
+      <Position>4</Position>
+      <DataType>VARCHAR(32)|12s</DataType>
+    </column>
+    <index id="29" parent="8" name="SYS_IDX_SYS_PK_10176_10178">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="30" parent="8" name="SYS_PK_10176">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="31" parent="9" name="ID">
+      <Position>1</Position>
+      <DataType>INTEGER|4s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>null</SequenceIdentity>
+    </column>
+    <column id="32" parent="9" name="FORMULAID">
+      <Position>2</Position>
+      <DataType>INTEGER|4s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="33" parent="9" name="CLASSID">
+      <Position>3</Position>
+      <DataType>INTEGER|4s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="34" parent="9" name="SYS_IDX_SYS_PK_10192_10197">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="35" parent="9" name="SYS_IDX_SYS_FK_10196_10202">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>FORMULAID</ColNames>
+    </index>
+    <index id="36" parent="9" name="SYS_IDX_SYS_FK_10195_10200">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>CLASSID</ColNames>
+    </index>
+    <key id="37" parent="9" name="SYS_PK_10192">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="38" parent="9" name="SYS_FK_10196">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>FORMULAID</ColNames>
+      <RefTableName>FORMULAS</RefTableName>
+      <RefKeyName>SYS_PK_10672</RefKeyName>
+      <RefColNames>ID</RefColNames>
+      <OnDelete>cascade</OnDelete>
+    </foreign-key>
+    <foreign-key id="39" parent="9" name="SYS_FK_10195">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>CLASSID</ColNames>
+      <RefTableName>CLASSES</RefTableName>
+      <RefKeyName>SYS_PK_10666</RefKeyName>
+      <RefColNames>ID</RefColNames>
+      <OnDelete>cascade</OnDelete>
+    </foreign-key>
+    <column id="40" parent="10" name="ID">
+      <Position>1</Position>
+      <DataType>INTEGER|4s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>null</SequenceIdentity>
+    </column>
+    <column id="41" parent="10" name="TIMESTAMP">
+      <Position>2</Position>
+      <DataType>TIMESTAMP|93s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="42" parent="10" name="MESSAGE">
+      <Position>3</Position>
+      <DataType>VARCHAR(128)|12s</DataType>
+    </column>
+    <column id="43" parent="10" name="MSGTYPE">
+      <Position>4</Position>
+      <DataType>VARCHAR(16)|12s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="44" parent="10" name="SYS_IDX_SYS_PK_10218_10221">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="45" parent="10" name="SYS_PK_10218">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ID</ColNames>
+      <Primary>1</Primary>
+    </key>
+  </database-model>
+</dataSource>
