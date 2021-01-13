@@ -9,22 +9,22 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class PostController {
 
-    @PostMapping("/addClass")
+    @PostMapping("/manageClass")
     public String addClass(Model model, @ModelAttribute("className")String className){
         //TODO: impl logic
-        return "addClass";
+        return "manageClass";
     }
 
-    @PostMapping(value = {"/addIon"})
+    @PostMapping(value = {"/manageIon"})
     public String addIon(Model model){
         //TODO: impl logic
-        return "addIon";
+        return "manageIon";
     }
 
-    @PostMapping(value = {"/addSubstance"})
+    @PostMapping(value = {"/manageSubstance"})
     public String addSubstance(Model model){
         //TODO: impl logic
-        return "addSubstance";
+        return "manageSubstance";
     }
 
     @PostMapping(value = {"/login"})

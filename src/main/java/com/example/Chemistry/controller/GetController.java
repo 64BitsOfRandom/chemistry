@@ -12,24 +12,24 @@ public class GetController {
         return "index";
     }
 
-    @GetMapping(value = {"/addClass"})
-    public String addClass(){
-        return "addClass";
-    }
-
-    @GetMapping(value = {"/addIon"})
-    public String addIon(){
-        return "addIon";
-    }
-
-    @GetMapping(value = {"/addSubstance"})
-    public String addSubstance(){
-        return "addSubstance";
-    }
-
     @GetMapping(value = {"/login"})
     public String login(){
         return "login";
+    }
+
+    @GetMapping(value = {"/manageClass"})
+    public String addClass(){
+        return "manageClass";
+    }
+
+    @GetMapping(value = {"/manageIon"})
+    public String addIon(){
+        return "manageIon";
+    }
+
+    @GetMapping(value = {"/manageSubstance"})
+    public String addSubstance(){
+        return "manageSubstance";
     }
 }
 
