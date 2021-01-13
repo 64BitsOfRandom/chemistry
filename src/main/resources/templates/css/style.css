@@ -1,0 +1,67 @@
+
+body {
+    padding: 10px;
+}
+
+/* grid */
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-gap: 3px;
+    background-color: black;
+
+    width: 80%;
+    /*height: 90vh;*/
+}
+
+.grid-container > div {
+    background-color: white;
+    /*border: 1px solid black;*/
+    text-align: left;
+    /*font-size: 30px;*/
+    padding: 4px;
+}
+
+.line_item {
+    grid-column: span 4;
+}
+
+.long_item {
+    height: 20em;
+    overflow: auto;
+}
+
+/* tables */
+table {
+    border-collapse: collapse;
+    /*width: 100%;*/
+}
+
+tbody {
+    height: 20%;
+    overflow: scroll;
+}
+
+table td, table th {
+    border: 1px solid black;
+    padding-right: 8px;
+}
+
+table tr:first-child th {
+    border-top: 0;
+}
+
+table tr:last-child td {
+    border-bottom: 0;
+}
+
+table tr td:first-child,
+table tr th:first-child {
+    border-left: 0;
+}
+
+table tr td:last-child,
+table tr th:last-child {
+    border-right: 0;
+}
+

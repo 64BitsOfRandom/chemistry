@@ -1,15 +1,327 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <title>Welcome</title>
+    <meta charset="UTF-8">
+    <title>Title</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
+
+<style>
+    body {
+        padding: 10px;
+    }
+
+    /* grid */
+    .grid-container {
+        display: grid;
+        grid-template-columns: auto auto auto auto;
+        grid-gap: 3px;
+        background-color: black;
+
+        width: 80%;
+        /*height: 90vh;*/
+    }
+
+    .grid-container > div {
+        background-color: white;
+        /*border: 1px solid black;*/
+        text-align: left;
+        /*font-size: 30px;*/
+        padding: 4px;
+    }
+
+    .line_item {
+        grid-column: span 4;
+    }
+
+    .long_item {
+        height: 20em;
+        overflow: auto;
+    }
+
+    /* tables */
+    table {
+        border-collapse: collapse;
+        /*width: 100%;*/
+    }
+
+    tbody {
+        height: 20%;
+        overflow: scroll;
+    }
+
+    table td, table th {
+        border: 1px solid black;
+        padding-right: 8px;
+    }
+
+    table tr:first-child th {
+        border-top: 0;
+    }
+
+    table tr:last-child td {
+        border-bottom: 0;
+    }
+
+    table tr td:first-child,
+    table tr th:first-child {
+        border-left: 0;
+    }
+
+    table tr td:last-child,
+    table tr th:last-child {
+        border-right: 0;
+    }
+
+</style>
+
 <body>
-<h1>Welcome</h1>
-<h2 th:utext="${message}">..!..</h2>
-<a th:href="@{/personList}">Person List</a>
+
+<div class="grid-container">
+    <div class="line_item">
+        <button>authenticate</button>
+        <button>logout</button>
+    </div>
+
+    <div class="short_item">
+        entities
+    </div>
+    <div class="short_item">ions</div>
+    <div class="short_item">substance classes</div>
+    <div class="short_item">formulas-substances</div>
+
+    <div class="long_item">
+        selections
+    </div>
+    <div class="long_item">
+        <table>
+            <tr>
+                <th>type</th>
+                <th>notation</th>
+                <th>valence</th>
+            </tr>
+        </table>
+    </div>
+    <div class="long_item">
+        <table>
+            <tr>
+                <th>name</th>
+            </tr>
+            <tr>
+                <td>123</td>
+            </tr>
+            <tr>
+                <td>123</td>
+            </tr>
+            <tr>
+                <td>123</td>
+            </tr>
+            <tr>
+                <td>123</td>
+            </tr>
+            <tr>
+                <td>123</td>
+            </tr>
+            <tr>
+                <td>123</td>
+            </tr>
+            <tr>
+                <td>123</td>
+            </tr>
+            <tr>
+                <td>123</td>
+            </tr>
+            <tr>
+                <td>123</td>
+            </tr>
+            <tr>
+                <td>123</td>
+            </tr>
+            <tr>
+                <td>123</td>
+            </tr>
+            <tr>
+                <td>123</td>
+            </tr>
+            <tr>
+                <td>123</td>
+            </tr>
+            <tr>
+                <td>123</td>
+            </tr>
+            <tr>
+                <td>123</td>
+            </tr>
+            <tr>
+                <td>123</td>
+            </tr>
+            <tr>
+                <td>123</td>
+            </tr>
+            <tr>
+                <td>123</td>
+            </tr>
+            <tr>
+                <td>123</td>
+            </tr>
+            <tr>
+                <td>123</td>
+            </tr>
+        </table>
+    </div>
+    <div class="long_item">
+        <table>
+            <tr>
+                <th>ion pair view</th>
+                <th>substance class name</th>
+                <th>formula notation</th>
+            </tr>
+        </table>
+    </div>
+
+    <div class="grid-item">
+        filters
+    </div>
+    <div class="grid-item">
+        <table>
+            <tr>
+                <td><input type="checkbox" id="filter_ions_by_substances_checkbox"/></td>
+                <td><label for="filter_ions_by_substances_checkbox">by formulas-substances</label></td>
+            </tr>
+        </table>
+    </div>
+    <div class="grid-item">
+        <table>
+            <tr>
+                <td><input type="checkbox" id="filter_classes_by_substances_checkbox"/></td>
+                <td><label for="filter_classes_by_substances_checkbox">by formulas-substances</label></td>
+            </tr>
+        </table>
+    </div>
+    <div class="grid-item">
+        <table>
+            <tr>
+                <td><input type="checkbox" id="filter_substances_by_ions_checkbox"/></td>
+                <td><label for="filter_substances_by_ions_checkbox">by ions</label></td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" id="filter_substances_by_classes_checkbox"/></td>
+                <td><label for="filter_substances_by_classes_checkbox">by classes</label></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="grid-item">
+        inputs
+    </div>
+    <div class="grid-item">
+        <table>
+            <tr>
+                <td><label for="ion_type_input">type</label></td>
+                <td><input id="ion_type_input" type="text"></td>
+            </tr>
+            <tr>
+                <td><label for="ion_notation_input">notation</label></td>
+                <td><input id="ion_notation_input" type="text"></td>
+            </tr>
+            <tr>
+                <td><label for="ion_valence_input">valence</label></td>
+                <td><input id="ion_valence_input" type="text"></td>
+            </tr>
+        </table>
+    </div>
+    <div class="grid-item">
+        <table>
+            <tr>
+                <td><label for="substance_class_name_input">name</label></td>
+                <td><input id="substance_class_name_input" type="text"></td>
+            </tr>
+        </table>
+    </div>
+    <div class="grid-item">
+        <table>
+            <tr>
+                <td><label for="substance_anion_input">anion</label></td>
+                <td><input id="substance_anion_input" type="text" readonly></td>
+            </tr>
+            <tr>
+                <td><label for="substance_cation_input">cation</label></td>
+                <td><input id="substance_cation_input" type="text" readonly></td>
+            </tr>
+            <tr>
+                <td><label for="substance_class_input">class</label></td>
+                <td><input id="substance_class_input" type="text" readonly></td>
+            </tr>
+            <tr>
+                <td><label for="substance_notation_input">notation</label></td>
+                <td><input id="substance_notation_input" type="text"></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="grid-item">
+        commands
+    </div>
+    <div class="grid-item">
+        <table>
+            <tr>
+
+                <!--                <td><input type="submit" value="create"/></td>-->
+                <td>
+                    <form action="#" th:action="@{/createIon}" th:object="${ion}" method="post">
+                        <input type="submit" value="create"/>
+                    </form>
+
+                </td>
+                <td><label>N</label></td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="update"/></td>
+                <td><label>R</label></td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="delete"/></td>
+                <td><label>Delete</label></td>
+            </tr>
+        </table>
+    </div>
+    <div class="grid-item">
+        <table>
+            <tr>
+                <td><input type="submit" value="create"/></td>
+                <td><label>N</label></td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="update"/></td>
+                <td><label>R</label></td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="delete"/></td>
+                <td><label>Delete</label></td>
+            </tr>
+        </table>
+    </div>
+    <div class="grid-item">
+        <table>
+            <tr>
+                <td><input type="submit" value="create"/></td>
+                <td><label>N</label></td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="update"/></td>
+                <td><label>R</label></td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="delete"/></td>
+                <td><label>Delete</label></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="line_item">
+        info / tip / error
+    </div>
+</div>
 
 </body>
-
 </html>
