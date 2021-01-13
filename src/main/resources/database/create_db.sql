@@ -8,14 +8,14 @@ CREATE TABLE IF NOT EXISTS ions
 (
     id       INTEGER IDENTITY PRIMARY KEY,
     valence  INTEGER NOT NULL,
-    notation VARCHAR(32),
+    notation VARCHAR(32) UNIQUE,
     type     VARCHAR(32)
 );
 CREATE TABLE  IF NOT EXISTS formulas
 (
     id       INTEGER IDENTITY  PRIMARY KEY,
-    anion    INTEGER NOT NULL,
     cation   INTEGER NOT NULL,
+    anion    INTEGER NOT NULL,
     notation VARCHAR(32),
     foreign key  (anion) REFERENCES  ions(id) ON DELETE CASCADE,
     foreign key  (cation) REFERENCES  ions(id) ON DELETE CASCADE
