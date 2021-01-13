@@ -1,7 +1,6 @@
 package com.example.Chemistry.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 
@@ -9,28 +8,27 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class GetController {
 
     @GetMapping(value={"/","/index"})
-    public String index(Model model){
-//        model.addAttribute("message", message);
+    public String index(){
         return "index";
     }
 
     @GetMapping(value = {"/addClass"})
-    public String addClass(Model model){
+    public String addClass(){
         return "addClass";
     }
 
     @GetMapping(value = {"/addIon"})
-    public String addIon(Model model){
+    public String addIon(){
         return "addIon";
     }
 
     @GetMapping(value = {"/addSubstance"})
-    public String addSubstance(Model model){
+    public String addSubstance(){
         return "addSubstance";
     }
 
     @GetMapping(value = {"/login"})
-    public String login(Model model){
+    public String login(){
         return "login";
     }
 }
