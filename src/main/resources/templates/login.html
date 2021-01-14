@@ -1,10 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>chemistry</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
 <body>
-<h1>Login page</h1>
+
+<div class="site-map">
+    <table style="width: 100%">
+        <tr>
+            <td>
+                <a href="../ions/main.html">ионы</a>
+                <a href="../classes/main.html">классы</a>
+                <a href="../substances/main.html">вещества</a>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<h3>вход</h3>
+
+<form>
+    <table>
+        <tr>
+            <td><label for="input-login">логин</label></td>
+            <td><input type="text" id="input-login"></td>
+        </tr>
+        <tr>
+            <td><label for="input-password">пароль</label></td>
+            <td><input type="password" id="input-password"></td>
+        </tr>
+    </table>
+
+    <br>
+    <input type="submit" value="войти">
+</form>
+
 </body>
 </html>
