@@ -2,255 +2,65 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>chemistry</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
-
 <body>
 
-<div class="grid-container">
-    <div class="line_item">
-        <button>authenticate</button>
-        <button>logout</button>
-    </div>
 
-    <div class="short_item">
-        entities
-    </div>
-    <div class="short_item">ions</div>
-    <div class="short_item">substance classes</div>
-    <div class="short_item">formulas-substances</div>
+<div class="site-map">
+    <table style="width: 100%">
+        <tr>
+            <td>
+                <a href="/ions/main">ионы</a>
+                <a href="/classes/main">классы</a>
+            </td>
+            <td style="text-align:right">
+                <a href="/login">войти</a>
+            </td>
+        </tr>
+    </table>
+</div>
 
-    <div class="long_item">
-        selections
-    </div>
-    <div class="long_item">
-        <table>
-            <tr>
-                <th>type</th>
-                <th>notation</th>
-                <th>valence</th>
-            </tr>
-        </table>
-    </div>
-    <div class="long_item">
-        <table>
-            <tr>
-                <th>name</th>
-            </tr>
-            <tr>
-                <td>123</td>
-            </tr>
-            <tr>
-                <td>123</td>
-            </tr>
-            <tr>
-                <td>123</td>
-            </tr>
-            <tr>
-                <td>123</td>
-            </tr>
-            <tr>
-                <td>123</td>
-            </tr>
-            <tr>
-                <td>123</td>
-            </tr>
-            <tr>
-                <td>123</td>
-            </tr>
-            <tr>
-                <td>123</td>
-            </tr>
-            <tr>
-                <td>123</td>
-            </tr>
-            <tr>
-                <td>123</td>
-            </tr>
-            <tr>
-                <td>123</td>
-            </tr>
-            <tr>
-                <td>123</td>
-            </tr>
-            <tr>
-                <td>123</td>
-            </tr>
-            <tr>
-                <td>123</td>
-            </tr>
-            <tr>
-                <td>123</td>
-            </tr>
-            <tr>
-                <td>123</td>
-            </tr>
-            <tr>
-                <td>123</td>
-            </tr>
-            <tr>
-                <td>123</td>
-            </tr>
-            <tr>
-                <td>123</td>
-            </tr>
-            <tr>
-                <td>123</td>
-            </tr>
-        </table>
-    </div>
-    <div class="long_item">
-        <table>
-            <tr>
-                <th>ion pair view</th>
-                <th>substance class name</th>
-                <th>formula notation</th>
-            </tr>
-        </table>
-    </div>
+<h3>вещества</h3>
 
-    <div class="grid-item">
-        filters
-    </div>
-    <div class="grid-item">
-        <table>
-            <tr>
-                <td><input type="checkbox" id="filter_ions_by_substances_checkbox"/></td>
-                <td><label for="filter_ions_by_substances_checkbox">by formulas-substances</label></td>
-            </tr>
-        </table>
-    </div>
-    <div class="grid-item">
-        <table>
-            <tr>
-                <td><input type="checkbox" id="filter_classes_by_substances_checkbox"/></td>
-                <td><label for="filter_classes_by_substances_checkbox">by formulas-substances</label></td>
-            </tr>
-        </table>
-    </div>
-    <div class="grid-item">
-        <table>
-            <tr>
-                <td><input type="checkbox" id="filter_substances_by_ions_checkbox"/></td>
-                <td><label for="filter_substances_by_ions_checkbox">by ions</label></td>
-            </tr>
-            <tr>
-                <td><input type="checkbox" id="filter_substances_by_classes_checkbox"/></td>
-                <td><label for="filter_substances_by_classes_checkbox">by classes</label></td>
-            </tr>
-        </table>
-    </div>
+<a href="/substances/create">создать новую запись</a>
+<br>
+<br>
+<form method="delete">
+    <input type="submit" value="удалить выделенную запись">
+</form>
 
-    <div class="grid-item">
-        inputs
-    </div>
-    <div class="grid-item">
-        <table>
-            <tr>
-                <td><label for="ion_type_input">type</label></td>
-                <td><input id="ion_type_input" type="text"></td>
-            </tr>
-            <tr>
-                <td><label for="ion_notation_input">notation</label></td>
-                <td><input id="ion_notation_input" type="text"></td>
-            </tr>
-            <tr>
-                <td><label for="ion_valence_input">valence</label></td>
-                <td><input id="ion_valence_input" type="text"></td>
-            </tr>
-        </table>
-    </div>
-    <div class="grid-item">
-        <table>
-            <tr>
-                <td><label for="substance_class_name_input">name</label></td>
-                <td><input id="substance_class_name_input" type="text"></td>
-            </tr>
-        </table>
-    </div>
-    <div class="grid-item">
-        <table>
-            <tr>
-                <td><label for="substance_anion_input">anion</label></td>
-                <td><input id="substance_anion_input" type="text" readonly></td>
-            </tr>
-            <tr>
-                <td><label for="substance_cation_input">cation</label></td>
-                <td><input id="substance_cation_input" type="text" readonly></td>
-            </tr>
-            <tr>
-                <td><label for="substance_class_input">class</label></td>
-                <td><input id="substance_class_input" type="text" readonly></td>
-            </tr>
-            <tr>
-                <td><label for="substance_notation_input">notation</label></td>
-                <td><input id="substance_notation_input" type="text"></td>
-            </tr>
-        </table>
-    </div>
+<br>
+<br>
+<label>основания</label>
 
-    <div class="grid-item">
-        commands
+<div class="wrapper">
+    <div class="box">
+        <input id="1" type="radio" name="selector-ion" checked>
+        <label for="1">Нотация - Zn(OH)2</label>
     </div>
-    <div class="grid-item">
-        <table>
-            <tr>
+    <div class="box">
+        <input id="2" type="radio" name="selector-ion">
+        <label for="2">Al(OH)3</label>
+    </div>
+</div>
 
-                <!--                <td><input type="submit" value="create"/></td>-->
-                <td>
-                    <form action="#" th:action="@{/createIon}" th:object="${ion}" method="post">
-                        <input type="submit" value="create"/>
-                    </form>
+<br>
+<label>кислоты</label>
 
-                </td>
-                <td><label>N</label></td>
-            </tr>
-            <tr>
-                <td><input type="submit" value="update"/></td>
-                <td><label>R</label></td>
-            </tr>
-            <tr>
-                <td><input type="submit" value="delete"/></td>
-                <td><label>Delete</label></td>
-            </tr>
-        </table>
+<div class="wrapper">
+    <div class="box">
+        <input id="3" type="radio" name="selector-ion">
+        <label for="3">HNO3</label>
     </div>
-    <div class="grid-item">
-        <table>
-            <tr>
-                <td><input type="submit" value="create"/></td>
-                <td><label>N</label></td>
-            </tr>
-            <tr>
-                <td><input type="submit" value="update"/></td>
-                <td><label>R</label></td>
-            </tr>
-            <tr>
-                <td><input type="submit" value="delete"/></td>
-                <td><label>Delete</label></td>
-            </tr>
-        </table>
+    <div class="box">
+        <input id="4" type="radio" name="selector-ion">
+        <label for="4">NaCl</label>
     </div>
-    <div class="grid-item">
-        <table>
-            <tr>
-                <td><input type="submit" value="create"/></td>
-                <td><label>N</label></td>
-            </tr>
-            <tr>
-                <td><input type="submit" value="update"/></td>
-                <td><label>R</label></td>
-            </tr>
-            <tr>
-                <td><input type="submit" value="delete"/></td>
-                <td><label>Delete</label></td>
-            </tr>
-        </table>
-    </div>
-
-    <div class="line_item">
-        info / tip / error
+    <div class="box">
+        <input id="5" type="radio" name="selector-ion">
+        <label for="5">Ca3(PO4)2</label>
     </div>
 </div>
 

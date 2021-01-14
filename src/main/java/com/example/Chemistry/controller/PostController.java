@@ -6,25 +6,27 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.logging.Logger;
+
 @Controller
 public class PostController {
 
-    @PostMapping("/manageClass")
+    @PostMapping("/classes/create")
     public String addClass(Model model, @ModelAttribute("className")String className){
         //TODO: impl logic
-        return "manageClass";
+        return "classes/create";
     }
 
-    @PostMapping(value = {"/manageIon"})
+    @PostMapping(value = {"/ions/create"})
     public String addIon(Model model){
         //TODO: impl logic
-        return "manageIon";
+        return "ions/create";
     }
 
-    @PostMapping(value = {"/manageSubstance"})
+    @PostMapping(value = {"/substances/create"})
     public String addSubstance(Model model){
         //TODO: impl logic
-        return "manageSubstance";
+        return "substances/create";
     }
 
     @PostMapping(value = {"/login"})

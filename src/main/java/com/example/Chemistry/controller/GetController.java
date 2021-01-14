@@ -17,19 +17,22 @@ public class GetController {
         return "login";
     }
 
-    @GetMapping(value = {"/manageClass"})
-    public String addClass(){
-        return "manageClass";
-    }
+    @GetMapping(value = {"/classes/main"})
+    public String showClasses(){return "classes/main";}
+    @GetMapping(value = {"/ions/main"})
+    public String showIons(){return "ions/main";}
 
-    @GetMapping(value = {"/manageIon"})
-    public String addIon(){
-        return "manageIon";
+    @GetMapping(value = {"/classes/create"})
+    public String showCreateClass(){
+        return "classes/create";
     }
-
-    @GetMapping(value = {"/manageSubstance"})
-    public String addSubstance(){
-        return "manageSubstance";
+    @GetMapping(value = {"/ions/create"})
+    public String showCreateIon(){
+        return "ions/create";
+    }
+    @GetMapping(value = {"/substances/create"})
+    public String showCreateSubstance(){
+        return "substances/create";
     }
 }
 
