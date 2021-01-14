@@ -52,20 +52,3 @@ VALUES (0, 0),
        (7, 2),
        (8, 2);
 
--- CREATE TABLE  IF NOT EXISTS formulas
--- (
---     id       INTEGER IDENTITY  PRIMARY KEY,
---     anion    INTEGER NOT NULL,
---     cation   INTEGER NOT NULL,
---     notation VARCHAR(32),
---     foreign key  (anion) REFERENCES  ions(id) ON DELETE CASCADE,
---     foreign key  (cation) REFERENCES  ions(id) ON DELETE CASCADE
--- );
--- CREATE TABLE  IF NOT EXISTS substances
--- (
---     id        INTEGER IDENTITY  PRIMARY KEY,
---     formulaId INTEGER NOT NULL,
---     classId   INTEGER NOT NULL,
---     FOREIGN KEY (classId) REFERENCES classes(id) ON DELETE CASCADE,
---     FOREIGN KEY (formulaId) REFERENCES formulas(id) ON DELETE CASCADE
--- );
