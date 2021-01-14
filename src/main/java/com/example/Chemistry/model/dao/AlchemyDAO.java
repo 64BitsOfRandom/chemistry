@@ -7,6 +7,7 @@ import com.example.Chemistry.model.SubstanceClass;
 import com.example.Chemistry.model.dao.interfaces.IAlchemyDAO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLDataException;
 import java.sql.SQLException;
 
+@Component
 public class AlchemyDAO implements IAlchemyDAO {
     private static final Logger log = LogManager.getLogger(AlchemyDAO.class);
     //tables
