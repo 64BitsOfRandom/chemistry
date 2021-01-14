@@ -1,19 +1,28 @@
 table {
     border-collapse: collapse;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
+
 table td, table th {
     border: 1px solid black;
+    padding-left: 10px;
+    padding-right: 10px;
 }
+
 table tr:first-child th {
     border-top: 0;
 }
+
 table tr:last-child td {
     border-bottom: 0;
 }
+
 table tr td:first-child,
 table tr th:first-child {
     border-left: 0;
 }
+
 table tr td:last-child,
 table tr th:last-child {
     border-right: 0;
@@ -22,9 +31,8 @@ table tr th:last-child {
 .site-map {
     width: 100%;
     background: lightgray;
+    margin-bottom: 10px;
 }
-
-
 
 
 body {
@@ -33,27 +41,47 @@ body {
 
 .wrapper {
     display: grid;
-    grid-template-columns: auto auto auto auto;
+    grid-template-columns: auto auto auto auto auto;
     grid-gap: 10px;
+
+    width: max-content;
 }
 
 .box {
     border-radius: 5px;
-    padding-left: 8px;
-    padding-top: 4px;
-    height: 28px;
+    height: auto;
+    width: max-content;
 
     border: 1px solid black;
 }
 
+input[type="submit"] {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
 input[type="radio"] {
-    display:none;
+    display: none;
 }
 
 input[type="radio"] + label {
     color: grey;
+
+    height: 100%;
+    width: 100%;
+
+    margin: 8px;
+    padding: 8px;
+
+    /*background: green;*/
 }
 
 input[type="radio"]:checked + label {
     color: black;
+}
+
+
+form {
+    width: max-content;
+    border: 2px dotted green;
 }
