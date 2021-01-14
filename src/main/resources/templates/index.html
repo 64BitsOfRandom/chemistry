@@ -9,22 +9,18 @@
 
 
 <div class="site-map">
-    <table style="width: 100%">
-        <tr>
-            <td>
-                <a href="/ions/main">ионы</a>
-                <a href="/classes/main">классы</a>
-                <a>вещества</a>
-            </td>
-            <td style="text-align:right">
-                <a href="/login">войти</a>
-            </td>
-        </tr>
-    </table>
+    <div>
+        <a href="/ions/main">ионы</a>
+        <a href="/classes/main">классы</a>
+        <a>вещества</a>
+    </div>
+    <div style="text-align:right">
+        <a href="/login">войти</a>
+    </div>
 </div>
 
 <a href="/substances/create" style="margin-bottom: 10px">создать новую запись</a>
-<form method="post">
+<form method="post" action="/deleteSubstance">
     <input type="submit"  value="удалить выделенную запись">
 
     <table>

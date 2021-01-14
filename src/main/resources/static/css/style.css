@@ -1,3 +1,29 @@
+
+html *
+{
+    font-size: 1em !important;
+    font-family: Arial !important;
+}
+
+body {
+    margin: 60px;
+}
+
+
+form {
+    width: max-content;
+    border: 2px dotted #f3f3f3;
+}
+
+.site-map {
+    width: 60%;
+    background: #d3d3d3;
+    margin-bottom: 10px;
+    padding: 0 2px 2px 2px;
+}
+
+/* у таблиц отображаются внутренние границы между ячейками */
+
 table {
     border-collapse: collapse;
     margin-top: 10px;
@@ -28,16 +54,7 @@ table tr th:last-child {
     border-right: 0;
 }
 
-.site-map {
-    width: 100%;
-    background: lightgray;
-    margin-bottom: 10px;
-}
-
-
-body {
-    margin: 40px;
-}
+/* сетка объектов классов, ионов на их главных страницах */
 
 .wrapper {
     display: grid;
@@ -51,8 +68,13 @@ body {
     border-radius: 5px;
     height: auto;
     width: max-content;
+    background: #f1f1f1;
 
     border: 1px solid black;
+}
+
+input {
+    border-radius: 4px;
 }
 
 input[type="submit"] {
@@ -78,10 +100,4 @@ input[type="radio"] + label {
 
 input[type="radio"]:checked + label {
     color: black;
-}
-
-
-form {
-    width: max-content;
-    border: 2px dotted green;
 }

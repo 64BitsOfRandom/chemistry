@@ -8,25 +8,25 @@ import java.util.logging.Logger;
 @Controller
 public class DeleteController {
 
-    @PostMapping(value={"/","/index"})
+    @PostMapping(value={"/deleteSubstance"})
     public String deleteSubstance(){
         Logger.getAnonymousLogger().warning("Delete method invoked!");
         //TODO: impl logic
-        return "index";
+        return "redirect:/index";
     }
 
-    @PostMapping(value = {"/classes/main"})
+    @PostMapping(value = {"/deleteClass"})
     public String deleteClass(){
         Logger.getAnonymousLogger().warning("Delete method invoked!");
         //TODO: impl logic
-        return "/classes/main";
+        return "redirect:/classes/main";
     }
 
-    @PostMapping(value = {"/ions/main"})
+    @PostMapping(value = {"/deleteIon"})
     public String deleteIon(){
         Logger.getAnonymousLogger().warning("Delete method invoked!");
         //TODO: impl logic
-        return "/ions/main";
+        return "redirect:/ions/main";
     }
 
 }

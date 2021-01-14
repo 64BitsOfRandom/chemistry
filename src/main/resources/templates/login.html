@@ -8,21 +8,14 @@
 <body>
 
 <div class="site-map">
-    <table style="width: 100%">
-        <tr>
-            <td>
-                <a href="/ions/main">ионы</a>
-                <a href="/classes/main">классы</a>
-                <a href="/index">вещества</a>
-            </td>
-            <td style="text-align:right">
-                <a>войти</a>
-            </td>
-        </tr>
-    </table>
+    <div>
+        <a href="/ions/main">ионы</a>
+        <a href="/classes/main">классы</a>
+        <a href="/index">вещества</a>
+    </div>
 </div>
 
-<form>
+<form method="post" action="/login">
     <table>
         <tr>
             <td><label for="input-login">логин</label></td>
@@ -33,7 +26,6 @@
             <td><input type="password" id="input-password"></td>
         </tr>
     </table>
-
     <input type="submit" value="войти">
 </form>
 
