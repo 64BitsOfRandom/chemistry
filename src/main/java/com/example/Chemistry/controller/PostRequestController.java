@@ -30,7 +30,6 @@ public class PostRequestController {
 
     @PostMapping(value = {"/login"})
     public String login(HttpSession session,
-                        Model model,
                         @ModelAttribute("username") String username,
                         @ModelAttribute("password") String password) {
         if ("admin".equals(username) && "admin123".equals(password)) {

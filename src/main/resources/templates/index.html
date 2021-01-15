@@ -6,20 +6,8 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
 <body>
-<div class="site-map">
-    <table style="width: 100%">
-        <tr>
-            <td>
-                <a href="/ions/main"><span th:text="#{map.ions}"></span></a>
-                <a href="/classes/main"><span th:text="#{map.classes}"></span></a>
-                <a><span th:text="#{map.substances}"></span></a>
-            </td>
-            <td style="text-align:right">
-                <a th:href="${session.isAdmin} ? @{/logout} : @{/login} "><span th:text="${session.isAdmin} ? #{map.logout} : #{map.login}"></span></a>
-            </td>
-        </tr>
-    </table>
-</div>
+
+<div th:insert="top-plate :: top-plate"></div>
 <a href="/substances/create" style="margin-bottom: 10px"><span th:text="#{links.create}"></span></a>
 <form method="post" action="/deleteEntity">
     <!--    TODO:передать имя таблицы и id выделенного элемента-->
