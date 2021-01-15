@@ -12,7 +12,7 @@
             <td>
                 <a href="/ions/main"><span th:text="#{map.ions}"></span></a>
                 <a href="/classes/main"><span th:text="#{map.classes}"></span></a>
-                <a><span th:text="#{map.substances}"></span></a>
+                <a href="/index"><span th:text="#{map.substances}"></span></a>
             </td>
             <td style="text-align:right">
                 <a th:href="${session.isAdmin} ? @{/logout} : @{/login} "><span th:text="${session.isAdmin} ? #{map.logout} : #{map.login}"></span></a>

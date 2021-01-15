@@ -5,8 +5,14 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Builder
-@Getter@Setter
+@Getter
+@Setter
 public class SubstanceClass {
     private int id;
     private String name;
+
+    public boolean isConsistent() {
+        return id >= 0
+                && name != null;
+    }
 }

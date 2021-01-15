@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Random;
@@ -29,9 +30,18 @@ class SubstanceView {
 
 @Controller
 public class ShowPagesController {
+    List<SubstanceView> substances;
+    List<ClassView> classes;
+    List<IonView> ions;
+    List<IonView> anions;
+    List<IonView> cations;
+
     @GetMapping(value = {"/", "/index"})
-    public String index(Model model) {
-        model.addAttribute("substances", List.of(new SubstanceView(), new SubstanceView()));
+    public String index(Model model, HttpServletRequest request) {
+
+        substances = List.of(new SubstanceView(), new SubstanceView());
+        request.setAttribute("substances", substances);
+
         return "index";
     }
 
@@ -46,15 +56,19 @@ public class ShowPagesController {
     }
 
     @GetMapping(value = {"/classes/main"})
-    public String showClasses(Model model) {
-        model.addAttribute("classes", List.of(new ClassView(), new ClassView()));
+    public String showClasses(Model model, HttpServletRequest request) {
+
+        classes = List.of(new ClassView(), new ClassView());
+        request.setAttribute("classes", classes);
 
         return "classes/main";
     }
 
     @GetMapping(value = {"/ions/main"})
-    public String showIons(Model model) {
-        model.addAttribute("ions", List.of(new IonView(), new IonView()));
+    public String showIons(Model model, HttpServletRequest request) {
+
+        ions = List.of(new IonView(), new IonView());
+        request.setAttribute("ions", ions);
 
         return "ions/main";
     }
@@ -70,10 +84,15 @@ public class ShowPagesController {
     }
 
     @GetMapping(value = {"/substances/create"})
-    public String showCreateSubstance(Model model) {
-        model.addAttribute("classes", List.of(new ClassView(), new ClassView()));
-        model.addAttribute("anions", List.of(new IonView(), new IonView()));
-        model.addAttribute("cations", List.of(new IonView(), new IonView()));
+    public String showCreateSubstance(Model model, HttpServletRequest request) {
+
+        classes = List.of(new ClassView(), new ClassView());
+        anions = List.of(new IonView(), new IonView());
+        cations = List.of(new IonView(), new IonView());
+
+        request.setAttribute("classes", classes);
+        request.setAttribute("anions", anions);
+        request.setAttribute("cations", cations);
 
         return "substances/create";
     }
