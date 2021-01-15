@@ -7,7 +7,7 @@ import lombok.Setter;
 @Builder
 @Getter
 @Setter
-public class Ion {
+public class Ion extends Entity {
     public static String ANION_TYPE = "anion";
     public static String CATION_TYPE = "cation";
 
@@ -16,6 +16,7 @@ public class Ion {
     private int valence;
     private String notation;
 
+    @Override
     public boolean isConsistent() {
         return id >= 0
                 && type != null
