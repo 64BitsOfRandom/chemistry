@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Random;
 
@@ -31,13 +32,17 @@ public class ShowPagesController {
     @GetMapping(value = {"/", "/index"})
     public String index(Model model) {
         model.addAttribute("substances", List.of(new SubstanceView(), new SubstanceView()));
-
         return "index";
     }
 
     @GetMapping(value = {"/login"})
     public String login(Model model) {
         return "login";
+    }
+    @GetMapping(value = {"/logout"})
+    public String logout(HttpSession session) {
+        session.setAttribute("isAdmin", false);
+        return "index";
     }
 
     @GetMapping(value = {"/classes/main"})

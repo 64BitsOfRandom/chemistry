@@ -8,15 +8,15 @@
 <body>
 <div th:insert="top-plate :: top-plate"></div>
 <h4><span th:text="#{section.login}"></span></h4>
-<form method="post" action="/classes/create">
+<form method="post" action="/login">
     <table>
         <tr>
             <td><label for="input-login"><span th:text="#{input.login}"></span></label></td>
-            <td><input type="text" id="input-login"></td>
+            <td><input type="text" id="input-login" name="username"></td>
         </tr>
         <tr>
             <td><label for="input-password"><span th:text="#{input.password}"></span></label></td>
-            <td><input type="password" id="input-password"></td>
+            <td><input type="password" id="input-password" name="password"></td>
         </tr>
     </table>
     <input type="submit" th:value="#{submit.login}">
