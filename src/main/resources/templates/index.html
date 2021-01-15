@@ -15,7 +15,7 @@
                 <a><span th:text="#{map.substances}"></span></a>
             </td>
             <td style="text-align:right">
-                <a href="/login"><span th:text="#{map.login}"></span></a>
+                <a th:href="${session.isAdmin} ? @{/logout} : @{/login} "><span th:text="${session.isAdmin} ? #{map.logout} : #{map.login}"></span></a>
             </td>
         </tr>
     </table>

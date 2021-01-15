@@ -1,10 +1,7 @@
 package com.example.Chemistry.controller;
 
-import com.example.Chemistry.model.dao.AlchemyDAO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -14,19 +11,19 @@ import javax.servlet.http.HttpSession;
 public class PostRequestController {
 
     @PostMapping("/classes/create")
-    public String addClass(Model model, @ModelAttribute("className")String className){
+    public String addClass(Model model, @ModelAttribute("className") String className) {
         //TODO: impl logic
         return "classes/create";
     }
 
     @PostMapping(value = {"/ions/create"})
-    public String addIon(Model model){
+    public String addIon(Model model) {
         //TODO: impl logic
         return "ions/create";
     }
 
     @PostMapping(value = {"/substances/create"})
-    public String addSubstance(Model model){
+    public String addSubstance(Model model) {
         //TODO: impl logic
         return "substances/create";
     }
@@ -34,14 +31,18 @@ public class PostRequestController {
     @PostMapping(value = {"/login"})
     public String login(HttpSession session,
                         Model model,
-                        @ModelAttribute("username")String username,
-                        @ModelAttribute("password")String password){
-        if ("admin".equals(username) && "admin123".equals(password)){
-            session.setAttribute("isAdmin",true);
-            session.setAttribute("attemptFailed", true);
+                        @ModelAttribute("username") String username,
+                        @ModelAttribute("password") String password) {
+        if ("admin".equals(username) && "admin123".equals(password)) {
+            session.setAttribute("isAdmin", true);
             return "redirect:/index";
         }
-        model.addAttribute("attemptFailed", true);
         return "login";
+    }
+
+    @PostMapping(value = {"/logout"})
+    public String logout(HttpSession session) {
+        session.setAttribute("isAdmin", false);
+        return "index";
     }
 }
