@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div th:fragment="top-plate" class="site-map">
+    <table style="width: 100%">
+        <tr>
+            <td>
+                <a href="/ions/main"><span th:text="#{map.ions}"></span></a>
+                <a href="/classes/main"><span th:text="#{map.classes}"></span></a>
+                <a><span th:text="#{map.substances}"></span></a>
+            </td>
+            <td style="text-align:right">
+                <a th:href="${session.isAdmin} ? @{/logout} : @{/login} "><span th:text="${session.isAdmin} ? #{map.logout} : #{map.login}"></span></a>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
