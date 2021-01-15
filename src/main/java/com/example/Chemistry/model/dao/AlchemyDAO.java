@@ -34,13 +34,13 @@ public class AlchemyDAO implements IAlchemyDAO {
         boolean isSubstanceAdded = false;
         try (Connection connection = null;
              PreparedStatement statement = connection.prepareStatement(substanceInsertQuery)) {
-            statement.setString(2, substance.getFormula());
+            statement.setInt(2, substance.getFormulaId());
             statement.setInt(3, substance.getClassId());
             isSubstanceAdded = statement.execute();
         } catch (SQLException ex) {
             log.error("Failed to add substance!");
         }
-        log.info("Substance {} added", substance.getFormula());
+        log.info("Substance {} added", substance.getFormulaId());
         return isSubstanceAdded;
     }
 
@@ -125,7 +125,7 @@ public class AlchemyDAO implements IAlchemyDAO {
             if (resultSet.next()) {
                 substance = Substance.builder()
                         .id(resultSet.getInt("id"))
-                        .formula(resultSet.getString("formula"))
+                        .formulaId(resultSet.getInt("formulaId"))
                         .classId(resultSet.getInt("classId")).build();
             }
             if (!isSubstanceConsistent(substance)) {
@@ -188,13 +188,13 @@ public class AlchemyDAO implements IAlchemyDAO {
         boolean isUpdated = false;
         try (Connection connection = null;
              PreparedStatement statement = connection.prepareStatement(substanceUpdateQuery)) {
-            statement.setString(2, substance.getFormula());
+            statement.setInt(2, substance.getFormulaId());
             statement.setInt(3, substance.getClassId());
             isUpdated = statement.execute();
         } catch (SQLException ex) {
             log.error("Failed to add substance!");
         }
-        log.info("Substance {} added", substance.getFormula());
+        log.info("Substance {} added", substance.getFormulaId());
         return isUpdated;
     }
 
@@ -246,9 +246,7 @@ public class AlchemyDAO implements IAlchemyDAO {
 
 
     private boolean isSubstanceConsistent(Substance substance) {
-        return substance != null
-                && substance.getId() > 0
-                && !substance.getFormula().isBlank();
+        return substance != null && substance.getId() > 0;
     }
 
     private boolean isFormulaConsistent(Formula formula) {

@@ -1,14 +1,11 @@
-
-html *
-{
+html * {
     font-size: 1em !important;
-    font-family: Arial !important;
+    font-family: Arial, serif !important;
 }
 
 body {
     margin: 60px;
 }
-
 
 form {
     width: max-content;
@@ -44,13 +41,11 @@ table tr:last-child td {
     border-bottom: 0;
 }
 
-table tr td:first-child,
-table tr th:first-child {
+table tr td:first-child, table tr th:first-child {
     border-left: 0;
 }
 
-table tr td:last-child,
-table tr th:last-child {
+table tr td:last-child, table tr th:last-child {
     border-right: 0;
 }
 
@@ -60,7 +55,6 @@ table tr th:last-child {
     display: grid;
     grid-template-columns: auto auto auto auto;
     grid-gap: 10px;
-
     width: max-content;
 }
 
@@ -69,7 +63,6 @@ table tr th:last-child {
     height: auto;
     width: max-content;
     background: #f1f1f1;
-
     border: 1px solid black;
 }
 
@@ -88,14 +81,10 @@ input[type="radio"] {
 
 input[type="radio"] + label {
     color: grey;
-
     height: 100%;
     width: 100%;
-
     margin: 8px;
     padding: 8px;
-
-    /*background: green;*/
 }
 
 input[type="radio"]:checked + label {

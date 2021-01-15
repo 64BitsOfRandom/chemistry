@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title th:value="#{title}"></title>
+    <title th:text="#{title}"></title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
 <body>
@@ -20,27 +20,27 @@
         </tr>
     </table>
 </div>
-<h4><span th:text="#{title.creation}"></span></h4>
+<h4><span th:text="#{section.creation}"></span></h4>
 <form method="post" action="/substances/create">
     <label><span th:text="#{input.class}"></span></label>
     <div class="wrapper">
         <div class="box" th:each="class : ${classes}">
             <input type="radio" name="selector-class" checked>
-            <label ><span th:text="${class.name}"></span></label>
+            <label><span th:text="${class.name}"></span></label>
         </div>
     </div>
     <label><span th:text="#{input.anion}"></span></label>
     <div class="wrapper">
         <div class="box" th:each="anion : ${anions}">
             <input type="radio" name="selector-class" checked>
-            <label ><span th:text="${anion.notation}"></span></label>
+            <label><span th:text="${anion.notation}"></span></label>
         </div>
     </div>
     <label><span th:text="#{input.cation}"></span></label>
     <div class="wrapper">
         <div class="box" th:each="cation : ${cations}">
             <input type="radio" name="selector-class" checked>
-            <label ><span th:text="${cation.notation}"></span></label>
+            <label><span th:text="${cation.notation}"></span></label>
         </div>
     </div>
     <table>
