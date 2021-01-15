@@ -5,18 +5,22 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
+import java.util.Random;
 
 class IonView {
+    public int id = new Random().nextInt();
     public String typeText = "type";
     public String notationText = "notation";
     public String valenceText = "valence";
 }
 
 class ClassView {
+    public int id = new Random().nextInt();
     public String nameText = "name";
 }
 
 class SubstanceView {
+    public int id = new Random().nextInt();
     public String formulaText = "formula";
     public String notationText = "notation";
     public String classText = "class";

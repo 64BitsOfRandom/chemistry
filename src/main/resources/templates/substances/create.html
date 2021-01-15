@@ -25,27 +25,27 @@
     <label><span th:text="#{input.class}"></span></label>
     <div class="wrapper">
         <div class="box" th:each="class : ${classes}">
-            <input type="radio" name="selector-class" checked>
-            <label><span th:text="${class.name}"></span></label>
+            <input th:id="${class.id}" type="radio" name="selector-class" checked>
+            <label th:for="${class.id}" th:text="${class.nameText}"></label>
         </div>
     </div>
     <label><span th:text="#{input.anion}"></span></label>
     <div class="wrapper">
         <div class="box" th:each="anion : ${anions}">
-            <input type="radio" name="selector-class" checked>
-            <label><span th:text="${anion.notation}"></span></label>
+            <input th:id="${anion.id}" type="radio" name="selector-class" checked>
+            <label th:for="${anion.id}" th:text="${anion.notationText}"></label>
         </div>
     </div>
     <label><span th:text="#{input.cation}"></span></label>
     <div class="wrapper">
         <div class="box" th:each="cation : ${cations}">
-            <input type="radio" name="selector-class" checked>
-            <label><span th:text="${cation.notation}"></span></label>
+            <input th:id="${cation.id}" type="radio" name="selector-class" checked>
+            <label th:for="${cation.id}" th:text="${cation.notationText}"></label>
         </div>
     </div>
     <table>
         <tr>
-            <td><label for="input-notation"><span th:text="#{input.notation}"></span></label></td>
+            <td><label for="input-notation" th:text="#{input.notation}"></label></td>
             <td><input type="text" id="input-notation"></td>
         </tr>
     </table>

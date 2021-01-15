@@ -26,8 +26,8 @@
     <input type="submit" th:value="#{submit.delete}">
     <div class="wrapper">
         <div class="box" th:each="ion : ${ions}">
-            <input type="radio" name="selector-ion" checked>
-            <label><span th:text="${ion.noation}"></span></label>
+            <input th:id="${ion.id}" type="radio" name="selector-ion" checked>
+            <label th:for="${ion.id}" th:text="${ion.notationText}"></label>
         </div>
     </div>
 </form>
