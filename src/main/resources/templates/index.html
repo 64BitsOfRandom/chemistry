@@ -10,7 +10,8 @@
 <div th:insert="top-plate :: top-plate"></div>
 <a href="/substances/create" style="margin-bottom: 10px"><span th:text="#{links.create}"></span></a>
 <form method="post" action="/deleteEntity">
-    <!--    TODO:передать имя таблицы и id выделенного элемента-->
+    <!--    TODO:передать id выделенного элемента-->
+    <input type="hidden" name="entity" value="substances">
     <input type="submit" th:value="#{submit.delete}">
     <table>
         <tr>

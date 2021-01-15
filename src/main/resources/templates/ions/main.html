@@ -7,9 +7,10 @@
 </head>
 <body>
 <div th:insert="top-plate :: top-plate"></div>
-<a href="/classes/create" style="margin-bottom: 10px"><span th:text="#{links.create}"></span></a>
+<a href="/ions/create" style="margin-bottom: 10px"><span th:text="#{links.create}"></span></a>
 <form method="post" action="/deleteEntity">
-<!--    TODO:передать имя таблицы и id выделенного элемента-->
+<!--    TODO:передать id выделенного элемента-->
+    <input type="hidden" name="entity" value="ions">
     <input type="submit" th:value="#{submit.delete}">
     <div class="wrapper">
         <div class="box" th:each="ion : ${ions}">
