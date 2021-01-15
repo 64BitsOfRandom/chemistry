@@ -2,32 +2,37 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>chemistry</title>
+    <title th:value="#{title}"></title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
 <body>
-
 <div class="site-map">
-    <div>
-        <a href="/ions/main">ионы</a>
-        <a href="/classes/main">классы</a>
-        <a href="/index">вещества</a>
-    </div>
+    <table style="width: 100%">
+        <tr>
+            <td>
+                <a href="/ions/main"><span th:text="#{map.ions}"></span></a>
+                <a href="/classes/main"><span th:text="#{map.classes}"></span></a>
+                <a href="/index"><span th:text="#{map.substances}"></span></a>
+            </td>
+            <td style="text-align:right">
+                <a><span th:text="#{map.login}"></span></a>
+            </td>
+        </tr>
+    </table>
 </div>
-
-<form method="post" action="/login">
+<h4><span th:text="#{title.login}"></span></h4>
+<form method="post" action="/classes/create">
     <table>
         <tr>
-            <td><label for="input-login">логин</label></td>
+            <td><label for="input-login"><span th:text="#{input.login}"></span></label></td>
             <td><input type="text" id="input-login"></td>
         </tr>
         <tr>
-            <td><label for="input-password">пароль</label></td>
+            <td><label for="input-password"><span th:text="#{input.password}"></span></label></td>
             <td><input type="password" id="input-password"></td>
         </tr>
     </table>
-    <input type="submit" value="войти">
+    <input type="submit" th:value="#{submit.login}">
 </form>
-
 </body>
 </html>

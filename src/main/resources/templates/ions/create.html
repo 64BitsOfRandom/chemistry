@@ -2,33 +2,29 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>chemistry</title>
+    <title th:value="#{title}"></title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
-
 <body>
-
 <div class="site-map">
     <table style="width: 100%">
         <tr>
             <td>
-                <a href="/ions/main">ионы</a>
-                <a href="/classes/main">классы</a>
-                <a href="/index">вещества</a>
+                <a href="/ions/main"><span th:text="#{map.ions}"></span></a>
+                <a href="/classes/main"><span th:text="#{map.classes}"></span></a>
+                <a href="/index"><span th:text="#{map.substances}"></span></a>
             </td>
             <td style="text-align:right">
-                <a href="/login">войти</a>
+                <a href="/login"><span th:text="#{map.login}"></span></a>
             </td>
         </tr>
     </table>
 </div>
-
-<h4>создание записи</h4>
-
+<h4><span th:text="#{title.creation}"></span></h4>
 <form method="post" action="/ions/create">
     <table>
         <tr>
-            <td>тип</td>
+            <td><span th:text="#{header.type}"></span></td>
             <td>
                 <input type="radio" id="input-anion" name="ion-type-input" checked/>
                 <label for="input-anion">анион</label>
@@ -37,18 +33,15 @@
             </td>
         </tr>
         <tr>
-            <td><label for="input-ion-notation">нотация</label></td>
+            <td><label for="input-ion-notation"><span th:text="#{header.notation}"></span></label></td>
             <td><input type="text" id="input-ion-notation"></td>
         </tr>
         <tr>
-            <td><label for="input-ion-valence">валентность</label></td>
+            <td><label for="input-ion-valence"><span th:text="#{header.valence}"></span></label></td>
             <td><input type="number" id="input-ion-valence"></td>
         </tr>
     </table>
-
-    <input type="submit" value="создать запись">
+    <input type="submit" th:value="#{submit.create}">
 </form>
-
-
 </body>
 </html>
