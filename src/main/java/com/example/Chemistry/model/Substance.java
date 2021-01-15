@@ -7,6 +7,6 @@ import lombok.Getter;
 @Getter
 public class Substance {
     private int id;
-    private String formula;
+    private int formulaId;
     private int classId;
 }

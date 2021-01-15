@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title th:value="#{title}"></title>
+    <title th:text="#{title}"></title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
 <body>
@@ -20,7 +20,7 @@
         </tr>
     </table>
 </div>
-<a href="/substances/create" style="margin-bottom: 10px"><span th:text="#{references.create}"></span></a>
+<a href="/substances/create" style="margin-bottom: 10px"><span th:text="#{links.create}"></span></a>
 <form method="post" action="/deleteEntity">
     <!--    TODO:передать имя таблицы и id выделенного элемента-->
     <input type="submit" th:value="#{submit.delete}">
@@ -33,10 +33,10 @@
         <tr th:each="substance : ${substances}">
             <td>
                 <input type="radio" name="selector-ion" checked>
-                <label><span th:text="${substance.formula}"></span></label>
+                <label><span th:text="${substance.formulaText}"></span></label>
             </td>
-            <td th:text="${substance.notation}"></td>
-            <td th:text="${substance.class}"></td>
+            <td th:text="${substance.notationText}"></td>
+            <td th:text="${substance.classText}"></td>
         </tr>
     </table>
 </form>
