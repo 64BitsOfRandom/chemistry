@@ -5,7 +5,6 @@ import com.example.Chemistry.model.Ion;
 import com.example.Chemistry.model.Substance;
 import com.example.Chemistry.model.SubstanceClass;
 import com.example.Chemistry.model.dao.interfaces.IAlchemyDAO;
-import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
@@ -169,19 +168,17 @@ public class AlchemyDAO implements IAlchemyDAO {
 
     @Override
     public boolean deleteEntityById(String tableName, int id) {
-        LogManager.getLogger().log(Level.INFO, "delete Invoked with params: " + tableName +" id " +id);
-        return true;
-//        boolean isDeleted = false;
-//        try (Connection connection = null;
-//             PreparedStatement statement = connection.prepareStatement(deleteQuery)) {
-//            statement.setString(1, tableName);
-//            statement.setInt(2, id);
-//            isDeleted = statement.execute();
-//        } catch (SQLException ex) {
-//            log.error("Unable to delete entity #{} from {}!", id, tableName);
-//        }
-//        if(isDeleted) log.info("Entity #{} deleted from {} successfully", id, tableName);
-//        return isDeleted;
+        boolean isDeleted = false;
+        try (Connection connection = null;
+             PreparedStatement statement = connection.prepareStatement(deleteQuery)) {
+            statement.setString(1, tableName);
+            statement.setInt(2, id);
+            isDeleted = statement.execute();
+        } catch (SQLException ex) {
+            log.error("Unable to delete entity #{} from {}!", id, tableName);
+        }
+        if(isDeleted) log.info("Entity #{} deleted from {} successfully", id, tableName);
+        return isDeleted;
     }
 
     // update
