@@ -7,7 +7,7 @@ import lombok.Setter;
 @Builder
 @Getter
 @Setter
-public class Substance {
+public class Substance extends Entity{
     private int id;
 
     private String formula;
