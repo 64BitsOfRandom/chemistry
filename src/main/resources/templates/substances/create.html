@@ -2,154 +2,54 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>chemistry</title>
+    <title th:value="#{title}"></title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
-
 <body>
-
 <div class="site-map">
     <table style="width: 100%">
         <tr>
             <td>
-                <a href="/ions/main">ионы</a>
-                <a href="/classes/main">классы</a>
-                <a href="/index">вещества</a>
+                <a href="/ions/main"><span th:text="#{map.ions}"></span></a>
+                <a href="/classes/main"><span th:text="#{map.classes}"></span></a>
+                <a href="/index"><span th:text="#{map.substances}"></span></a>
             </td>
             <td style="text-align:right">
-                <a href="/login">войти</a>
+                <a href="/login"><span th:text="#{map.login}"></span></a>
             </td>
         </tr>
     </table>
 </div>
-
-<h4>создание записи</h4>
-
+<h4><span th:text="#{title.creation}"></span></h4>
 <form method="post" action="/substances/create">
-    <label>класс</label>
+    <label><span th:text="#{input.class}"></span></label>
     <div class="wrapper">
-        <div class="box">
-            <input id="1" type="radio" name="selector-class" checked>
-            <label for="1">Оксиды</label>
-        </div>
-        <div class="box">
-            <input id="2" type="radio" name="selector-class">
-            <label for="2">Основания</label>
-        </div>
-
-        <div class="box">
-            <input id="3" type="radio" name="selector-class">
-            <label for="3">Кислоты</label>
-        </div>
-        <div class="box">
-            <input id="4" type="radio" name="selector-class">
-            <label for="4">Соли</label>
-        </div>
-        <div class="box">
-            <input id="5" type="radio" name="selector-class">
-            <label for="5">Класс</label>
-        </div>
-        <div class="box">
-            <input id="6" type="radio" name="selector-class">
-            <label for="6">Класс</label>
-        </div>
-        <div class="box">
-            <input id="7" type="radio" name="selector-class">
-            <label for="7">Класс</label>
+        <div class="box" th:each="class : ${classes}">
+            <input type="radio" name="selector-class" checked>
+            <label ><span th:text="${class.name}"></span></label>
         </div>
     </div>
-
-    <label>анион</label>
+    <label><span th:text="#{input.anion}"></span></label>
     <div class="wrapper">
-        <div class="box">
-            <input id="11" type="radio" name="selector-anion" checked>
-            <label for="11">Aluminum - Al 3+</label>
-        </div>
-        <div class="box">
-            <input id="22" type="radio" name="selector-anion">
-            <label for="22">Barium - Ba 2+</label>
-        </div>
-
-        <div class="box">
-            <input id="33" type="radio" name="selector-anion">
-            <label for="33">Bismuth - Bi 3+</label>
-        </div>
-        <div class="box">
-            <input id="44" type="radio" name="selector-anion">
-            <label for="44">Cadmium - Cd 2+</label>
-        </div>
-        <div class="box">
-            <input id="55" type="radio" name="selector-anion">
-            <label for="55">Calcium - Ca 2+</label>
-        </div>
-        <div class="box">
-            <input id="66" type="radio" name="selector-anion">
-            <label for="66">Cesium - Cs +</label>
-        </div>
-        <div class="box">
-            <input id="77" type="radio" name="selector-anion">
-            <label for="77">Chromium (III) - Cr 3+</label>
-        </div>
-        <div class="box">
-            <input id="88" type="radio" name="selector-anion">
-            <label for="88">Cobalt - Co 2+</label>
-        </div>
-        <div class="box">
-            <input id="99" type="radio" name="selector-anion">
-            <label for="99">Copper (I) - Cu +</label>
+        <div class="box" th:each="anion : ${anions}">
+            <input type="radio" name="selector-class" checked>
+            <label ><span th:text="${anion.notation}"></span></label>
         </div>
     </div>
-
-    <label>катион</label>
+    <label><span th:text="#{input.cation}"></span></label>
     <div class="wrapper">
-        <div class="box">
-            <input id="111" type="radio" name="selector-cation" checked>
-            <label for="111">Aluminum - Al 3+</label>
-        </div>
-        <div class="box">
-            <input id="222" type="radio" name="selector-cation">
-            <label for="222">Barium - Ba 2+</label>
-        </div>
-
-        <div class="box">
-            <input id="333" type="radio" name="selector-cation">
-            <label for="333">Bismuth - Bi 3+</label>
-        </div>
-        <div class="box">
-            <input id="444" type="radio" name="selector-cation">
-            <label for="444">Cadmium - Cd 2+</label>
-        </div>
-        <div class="box">
-            <input id="555" type="radio" name="selector-cation">
-            <label for="555">Calcium - Ca 2+</label>
-        </div>
-        <div class="box">
-            <input id="666" type="radio" name="selector-cation">
-            <label for="666">Cesium - Cs +</label>
-        </div>
-        <div class="box">
-            <input id="777" type="radio" name="selector-cation">
-            <label for="777">Chromium (III) - Cr 3+</label>
-        </div>
-        <div class="box">
-            <input id="888" type="radio" name="selector-cation">
-            <label for="888">Cobalt - Co 2+</label>
-        </div>
-        <div class="box">
-            <input id="999" type="radio" name="selector-cation">
-            <label for="999">Copper (I) - Cu +</label>
+        <div class="box" th:each="cation : ${cations}">
+            <input type="radio" name="selector-class" checked>
+            <label ><span th:text="${cation.notation}"></span></label>
         </div>
     </div>
-
     <table>
         <tr>
-            <td><label for="input-notation">нотация</label></td>
+            <td><label for="input-notation"><span th:text="#{input.notation}"></span></label></td>
             <td><input type="text" id="input-notation"></td>
         </tr>
     </table>
-
-    <input type="submit" value="создать запись">
+    <input type="submit" th:value="#{submit.create}">
 </form>
-
 </body>
 </html>

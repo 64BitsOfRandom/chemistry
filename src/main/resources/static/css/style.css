@@ -58,7 +58,7 @@ table tr th:last-child {
 
 .wrapper {
     display: grid;
-    grid-template-columns: auto auto auto auto auto;
+    grid-template-columns: auto auto auto auto;
     grid-gap: 10px;
 
     width: max-content;

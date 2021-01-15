@@ -2,68 +2,42 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>chemistry</title>
+    <title th:value="#{title}"></title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
 <body>
-
-
 <div class="site-map">
-    <div>
-        <a href="/ions/main">ионы</a>
-        <a href="/classes/main">классы</a>
-        <a>вещества</a>
-    </div>
-    <div style="text-align:right">
-        <a href="/login">войти</a>
-    </div>
+    <table style="width: 100%">
+        <tr>
+            <td>
+                <a href="/ions/main"><span th:text="#{map.ions}"></span></a>
+                <a href="/classes/main"><span th:text="#{map.classes}"></span></a>
+                <a><span th:text="#{map.substances}"></span></a>
+            </td>
+            <td style="text-align:right">
+                <a href="/login"><span th:text="#{map.login}"></span></a>
+            </td>
+        </tr>
+    </table>
 </div>
-
-<a href="/substances/create" style="margin-bottom: 10px">создать новую запись</a>
+<a href="/substances/create" style="margin-bottom: 10px"><span th:text="#{references.create}"></span></a>
 <form method="post" action="/deleteSubstance">
-    <input type="submit"  value="удалить выделенную запись">
-
+    <input type="submit" th:value="#{submit.delete}">
     <table>
         <tr>
-            <th>формула</th>
-            <th>нотация</th>
-            <th>класс</th>
+            <th><span th:text="#{header.formula}"></span></th>
+            <th><span th:text="#{header.notation}"></span></th>
+            <th><span th:text="#{header.class}"></span></th>
         </tr>
-
-        <tr>
+        <tr th:each="substance : ${substances}">
             <td>
-                <input id="1" type="radio" name="selector-ion" checked>
-                <label for="1">Zn(OH)2</label>
+                <input type="radio" name="selector-ion" checked>
+                <label><span th:text="${substance.formula}"></span></label>
             </td>
-            <td>Нотация</td>
-            <td>Класс</td>
-        </tr>
-        <tr>
-            <td>
-                <input id="2" type="radio" name="selector-ion">
-                <label for="2">Al(OH)3</label>
-            </td>
-            <td>Нотация</td>
-            <td>Класс</td>
-        </tr>
-        <tr>
-            <td>
-                <input id="3" type="radio" name="selector-ion">
-                <label for="3">HNO3</label>
-            </td>
-            <td>Нотация</td>
-            <td>Класс</td>
-        </tr>
-        <tr>
-            <td>
-                <input id="4" type="radio" name="selector-ion">
-                <label for="4">Ca3(PO4)2</label>
-            </td>
-            <td>Нотация</td>
-            <td>Класс</td>
+            <td th:text="${substance.notation}"></td>
+            <td th:text="${substance.class}"></td>
         </tr>
     </table>
 </form>
-
 </body>
 </html>
