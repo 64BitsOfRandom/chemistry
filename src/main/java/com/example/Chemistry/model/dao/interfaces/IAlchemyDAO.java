@@ -6,6 +6,16 @@ import com.example.Chemistry.model.Substance;
 import com.example.Chemistry.model.SubstanceClass;
 
 public interface IAlchemyDAO {
+    //tables
+    String FORMULA_TABLE_NAME = "formulas";
+    String IONS_TABLE_NAME = "ions";
+    String SUBSTANCES_TABLE_NAME = "substances";
+    String CLASSES_TABLE_NAME = "classes";
+    //columns vars ??
+    String FORMULA_COL_NAME = "formula";
+    String CATION_COL_NAME = "cation";
+    String ANION_COL_NAME = "anion";
+
     //select queries
     Substance getSubstanceById(int substanceId);
     Formula getFormulaById(int formulaId);

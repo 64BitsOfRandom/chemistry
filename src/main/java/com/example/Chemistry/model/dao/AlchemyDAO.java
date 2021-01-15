@@ -5,27 +5,17 @@ import com.example.Chemistry.model.Ion;
 import com.example.Chemistry.model.Substance;
 import com.example.Chemistry.model.SubstanceClass;
 import com.example.Chemistry.model.dao.interfaces.IAlchemyDAO;
+import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLDataException;
-import java.sql.SQLException;
+import java.sql.*;
 
-@Component
+@Component("alchemyDAO")
 public class AlchemyDAO implements IAlchemyDAO {
     private static final Logger log = LogManager.getLogger(AlchemyDAO.class);
-    //tables
-    public static final String FORMULA_TABLE_NAME = "formulas";
-    public static final String IONS_TABLE_NAME = "ions";
-    public static final String SUBSTANCES_TABLE_NAME = "substances";
-    //columns vars ??
-    public static final String FORMULA_COL_NAME = "formula";
-    public static final String CATION_COL_NAME = "cation";
-    public static final String ANION_COL_NAME = "anion";
+
     //queries
     private static final String selectQuery = "SELECT * FROM ? WHERE id = ?";
     private static final String deleteQuery = "DELETE FROM ? WHERE id = ?";
@@ -179,17 +169,19 @@ public class AlchemyDAO implements IAlchemyDAO {
 
     @Override
     public boolean deleteEntityById(String tableName, int id) {
-        boolean isDeleted = false;
-        try (Connection connection = null;
-             PreparedStatement statement = connection.prepareStatement(deleteQuery)) {
-            statement.setString(1, tableName);
-            statement.setInt(2, id);
-            isDeleted = statement.execute();
-        } catch (SQLException ex) {
-            log.error("Unable to delete entity #{} from {}!", id, tableName);
-        }
-        if(isDeleted) log.info("Entity #{} deleted from {} successfully", id, tableName);
-        return isDeleted;
+        LogManager.getLogger().log(Level.INFO, "delete Invoked with params: " + tableName +" id " +id);
+        return true;
+//        boolean isDeleted = false;
+//        try (Connection connection = null;
+//             PreparedStatement statement = connection.prepareStatement(deleteQuery)) {
+//            statement.setString(1, tableName);
+//            statement.setInt(2, id);
+//            isDeleted = statement.execute();
+//        } catch (SQLException ex) {
+//            log.error("Unable to delete entity #{} from {}!", id, tableName);
+//        }
+//        if(isDeleted) log.info("Entity #{} deleted from {} successfully", id, tableName);
+//        return isDeleted;
     }
 
     // update
