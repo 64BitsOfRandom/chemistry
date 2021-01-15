@@ -22,7 +22,7 @@ public class ShowPagesController {
     @GetMapping(value = {"/ions/main"})
     public String showIons(){return "ions/main";}
 
-    @GetMapping(value = {"/classes/create"})
+    @GetMapping(value = {"classes/create"})
     public String showCreateClass(){
         return "classes/create";
     }

@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 public class PostRequestController {
 
@@ -30,9 +32,16 @@ public class PostRequestController {
     }
 
     @PostMapping(value = {"/login"})
-    public String login(@ModelAttribute("username")String username,
+    public String login(HttpSession session,
+                        Model model,
+                        @ModelAttribute("username")String username,
                         @ModelAttribute("password")String password){
-        //TODO: impl logic
+        if ("admin".equals(username) && "admin123".equals(password)){
+            session.setAttribute("isAdmin",true);
+            session.setAttribute("attemptFailed", true);
+            return "redirect:/index";
+        }
+        model.addAttribute("attemptFailed", true);
         return "login";
     }
 }
