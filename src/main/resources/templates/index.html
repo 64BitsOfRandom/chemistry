@@ -21,7 +21,8 @@
     </table>
 </div>
 <a href="/substances/create" style="margin-bottom: 10px"><span th:text="#{references.create}"></span></a>
-<form method="post" action="/deleteSubstance">
+<form method="post" action="/deleteEntity">
+    <!--    TODO:передать имя таблицы и id выделенного элемента-->
     <input type="submit" th:value="#{submit.delete}">
     <table>
         <tr>

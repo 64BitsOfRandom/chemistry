@@ -21,7 +21,8 @@
     </table>
 </div>
 <a href="/classes/create" style="margin-bottom: 10px"><span th:text="#{references.create}"></span></a>
-<form method="post" action="/deleteClass">
+<form method="post" action="/deleteEntity">
+    <!--    TODO:передать имя таблицы и id выделенного элемента-->
     <input type="submit" th:value="#{submit.delete}">
     <div class="wrapper">
         <div class="box" th:each="class : ${classes}">
