@@ -21,4 +21,9 @@ public class Substance extends AbstractEntity {
                 && notation != null
                 && className != null;
     }
+
+    @Override
+    public String toString() {
+        return String.format("(%d - %s %s %s)", id, formula, notation, className);
+    }
 }

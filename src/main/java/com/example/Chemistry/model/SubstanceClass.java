@@ -13,7 +13,11 @@ public class SubstanceClass extends AbstractEntity {
 
     @Override
     public boolean isConsistent() {
-        return id >= 0
-                && name != null;
+        return id >= 0 && name != null;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("(%d - %s)", id, name);
     }
 }

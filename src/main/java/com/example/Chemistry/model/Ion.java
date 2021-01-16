@@ -24,4 +24,9 @@ public class Ion extends AbstractEntity {
                 && valence <= 7
                 && notation != null;
     }
+
+    @Override
+    public String toString() {
+        return String.format("(%d - %s %d %s)", id, type, valence, notation);
+    }
 }
