@@ -1,5 +1,6 @@
 package com.example.Chemistry.controller;
 
+import com.example.Chemistry.model.Ion;
 import com.example.Chemistry.model.dao.IChemistryDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -26,11 +27,8 @@ public class PostRequestController {
     }
 
     @PostMapping(value = {"/ions/create"})
-    public String addIon(@RequestAttribute("type") String type,
-                         @RequestAttribute("valence") int valence,
-                         @RequestAttribute("notation") String notation) {
-        dao.createIon(type, valence, notation);
-
+    public String addIon(@RequestAttribute("type")Ion ion) {
+        dao.createIon(ion.getType(), ion.getValence(), ion.getNotation());
         return "ions/create";
     }
 

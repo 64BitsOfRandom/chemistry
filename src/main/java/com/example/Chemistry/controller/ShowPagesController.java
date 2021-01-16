@@ -64,12 +64,14 @@ public class ShowPagesController {
     }
 
     @GetMapping(value = {"classes/create"})
-    public String showCreateClass() {
+    public String showCreateClass(Model model) {
+        model.addAttribute("substanceClass", SubstanceClass.builder().build());
         return "classes/create";
     }
 
     @GetMapping(value = {"/ions/create"})
-    public String showCreateIon() {
+    public String showCreateIon(Model model) {
+        model.addAttribute("ion", Ion.builder().build());
         return "ions/create";
     }
 
