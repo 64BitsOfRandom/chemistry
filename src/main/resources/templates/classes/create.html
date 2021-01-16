@@ -8,11 +8,12 @@
 <body>
 <div th:insert="top-plate :: top-plate"></div>
 <h4 th:if="${session.isAdmin}"><span th:text="#{section.creation}"></span></h4>
-<form method="post" action="/classes/create">
+
+<form th:object="${substanceClass}" method="post" action="/classes/create">
     <table>
         <tr>
-            <td><label for="input-class-name"><span th:text="#{header.name}"></span></label></td>
-            <td><input type="text" id="input-class-name"></td>
+            <td><label for="input-class-name" th:text="#{header.name}"></label></td>
+            <td><input type="text" id="input-class-name" th:field="${substanceClass.name}"></td>
         </tr>
     </table>
     <input th:if="${session.isAdmin}" type="submit" th:value="#{submit.create}">

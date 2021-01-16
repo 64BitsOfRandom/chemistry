@@ -8,32 +8,33 @@
 <body>
 <div th:insert="top-plate :: top-plate"></div>
 <h4 th:if="${session.isAdmin}"><span th:text="#{section.creation}"></span></h4>
-<form method="post" action="/substances/create">
+
+<form th:object="${substanceForm}" method="post" action="/substances/create">
     <label><span th:text="#{input.class}"></span></label>
     <div class="wrapper">
         <div class="box" th:each="class : ${classes}">
-            <input th:id="${class.id}" type="radio" name="selector-class" checked>
-            <label th:for="${class.id}" th:text="${class.name}"></label>
+            <input th:id="'class' + ${class.id}" th:field="${substanceForm.classId}" th:value="${class.id}" type="radio" checked/>
+            <label th:for="'class' + ${class.id}" th:text="${class.name}"></label>
         </div>
     </div>
     <label><span th:text="#{input.anion}"></span></label>
     <div class="wrapper">
         <div class="box" th:each="anion : ${anions}">
-            <input th:id="${anion.id}" type="radio" name="selector-class" checked>
-            <label th:for="${anion.id}" th:text="${anion.notation}"></label>
+            <input th:id="'anion' + ${anion.id}" th:field="${substanceForm.anionId}" th:value="${anion.id}" type="radio" checked/>
+            <label th:for="'anion' + ${anion.id}" th:text="${anion.notation}"></label>
         </div>
     </div>
     <label><span th:text="#{input.cation}"></span></label>
     <div class="wrapper">
         <div class="box" th:each="cation : ${cations}">
-            <input th:id="${cation.id}" type="radio" name="selector-class" checked>
-            <label th:for="${cation.id}" th:text="${cation.notation}"></label>
+            <input th:id="'cation' + ${cation.id}" th:field="${substanceForm.cationId}" th:value="${cation.id}" type="radio" checked/>
+            <label th:for="'cation' + ${cation.id}" th:text="${cation.notation}"></label>
         </div>
     </div>
     <table>
         <tr>
             <td><label for="input-notation" th:text="#{input.notation}"></label></td>
-            <td><input type="text" id="input-notation"></td>
+            <td><input type="text" id="input-notation" th:field="${substanceForm.notation}"></td>
         </tr>
     </table>
     <input th:if="${session.isAdmin}" type="submit" th:value="#{submit.create}">
