@@ -8,11 +8,21 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Substance extends AbstractEntity {
-    private int id;
+    public int id;
 
-    private String formula;
-    private String notation;
-    private String className;
+    public String formula;
+    public String notation;
+    public String className;
+
+    public Substance() {
+    }
+
+    public Substance(int id, String formula, String notation, String className) {
+        this.id = id;
+        this.formula = formula;
+        this.notation = notation;
+        this.className = className;
+    }
 
     @Override
     public boolean isConsistent() {

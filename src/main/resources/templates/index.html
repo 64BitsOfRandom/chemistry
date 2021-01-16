@@ -9,10 +9,9 @@
 
 <div th:insert="top-plate :: top-plate"></div>
 <a th:href="@{/substances/create}" style="margin-bottom: 10px"><span th:text="#{links.create}"></span></a>
-<div th:if="${substances.empty}"><h3 th:text="#{inavailable.substances}"></h3></div>
-<form th:unless="${substances.empty}" method="post" action="/deleteEntity">
-    <!--    TODO:передать id выделенного элемента-->
-    <input type="hidden" name="entity" value="substances">
+<!--<div th:if="${substances.empty}"><h3 th:text="#{inavailable.substances}"></h3></div>-->
+
+<form th:object="${substance__}" method="post" action="/index">
     <input type="submit" th:value="#{submit.delete}">
     <table>
         <tr>
@@ -22,7 +21,7 @@
         </tr>
         <tr th:each="substance : ${substances}">
             <td>
-                <input th:id="${substance.id}" type="radio" name="selector-ion" checked>
+                <input th:id="${substance.id}" th:field="${substance__.id}" th:value="${substance.id}" type="radio" checked/>
                 <label th:for="${substance.id}" th:text="${substance.formula}"></label>
             </td>
             <td th:text="${substance.notation}"></td>
@@ -30,5 +29,6 @@
         </tr>
     </table>
 </form>
+
 </body>
 </html>

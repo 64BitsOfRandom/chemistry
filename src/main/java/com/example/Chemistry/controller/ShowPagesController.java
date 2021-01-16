@@ -21,7 +21,9 @@ public class ShowPagesController {
     private IChemistryDAO dao;
 
     @GetMapping(value = {"/", "/index"})
-    public String index(HttpServletRequest request) {
+    public String index(Model model, HttpServletRequest request) {
+        Substance substance = Substance.builder().build();
+        model.addAttribute("substance__", substance);
 
         List<Substance> substances = dao.readSubstances();
         request.setAttribute("substances", substances);
@@ -41,6 +43,8 @@ public class ShowPagesController {
 
     @GetMapping(value = {"/classes/main"})
     public String showClasses(Model model, HttpServletRequest request) {
+        SubstanceClass substanceClass = SubstanceClass.builder().build();
+        model.addAttribute("class__", substanceClass);
 
         List<SubstanceClass> substanceClasses = dao.readSubstanceClasses();
         request.setAttribute("classes", substanceClasses);
@@ -51,7 +55,6 @@ public class ShowPagesController {
     @GetMapping(value = {"/ions/main"})
     public String showIons(Model model, HttpServletRequest request) {
         Ion ion__ = Ion.builder().build();
-//        request.setAttribute("ion__", ion__);
         model.addAttribute("ion__", ion__);
 
         List<Ion> ions = dao.readIons();

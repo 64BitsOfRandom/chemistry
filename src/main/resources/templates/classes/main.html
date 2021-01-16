@@ -8,16 +8,20 @@
 <body>
 <div th:insert="top-plate :: top-plate"></div>
 <a th:href="@{/classes/create}" style="margin-bottom: 10px"><span th:text="#{links.create}"></span></a>
-<form method="post" action="/deleteEntity">
-    <!--    TODO:передать id выделенного элемента-->
-    <input th:if="${session.isAdmin}" type="submit" th:value="#{submit.delete}">
-    <input type="hidden" name="entity" value="classes">
-    <div class="wrapper">
-        <div class="box" th:each="class : ${classes}">
-            <input th:id="${class.id}" type="radio" name="selector-class" checked>
-            <label th:for="${class.id}" th:text="${class.name}"></label>
+
+<form th:object="${class__}" method="post" action="/classes/main">
+    <fieldset>
+        <legend th:text="#{entries}"></legend>
+        <input th:if="${session.isAdmin}" type="submit" th:value="#{submit.delete}">
+        <div class="wrapper">
+            <div class="box" th:each="class : ${classes}">
+                <input th:id="${class.id}" th:field="${class__.id}" th:value="${class.id}" type="radio" checked/>
+                <label th:for="${class.id}" th:text="${class.name}"></label>
+            </div>
         </div>
-    </div>
+    </fieldset>
+    <p><input type="submit" value="Submit"/></p>
 </form>
+
 </body>
 </html>
