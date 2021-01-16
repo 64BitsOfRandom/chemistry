@@ -1,9 +1,9 @@
 package com.example.Chemistry.model.dao;
 
 import com.example.Chemistry.connector.DatabaseConnector;
-import com.example.Chemistry.model.Ion;
-import com.example.Chemistry.model.Substance;
-import com.example.Chemistry.model.SubstanceClass;
+import com.example.Chemistry.model.beans.Ion;
+import com.example.Chemistry.model.beans.Substance;
+import com.example.Chemistry.model.beans.SubstanceClass;
 import org.springframework.stereotype.Component;
 
 import java.sql.*;

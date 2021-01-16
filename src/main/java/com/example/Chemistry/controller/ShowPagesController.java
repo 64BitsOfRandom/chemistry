@@ -1,8 +1,8 @@
 package com.example.Chemistry.controller;
 
-import com.example.Chemistry.model.Ion;
-import com.example.Chemistry.model.Substance;
-import com.example.Chemistry.model.SubstanceClass;
+import com.example.Chemistry.model.beans.Ion;
+import com.example.Chemistry.model.beans.Substance;
+import com.example.Chemistry.model.beans.SubstanceClass;
 import com.example.Chemistry.model.dao.IChemistryDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

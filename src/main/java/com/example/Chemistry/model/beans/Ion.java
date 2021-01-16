@@ -1,4 +1,4 @@
-package com.example.Chemistry.model;
+package com.example.Chemistry.model.beans;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -7,7 +7,7 @@ import lombok.Setter;
 @Builder
 @Getter
 @Setter
-public class Ion extends AbstractEntity {
+public class Ion {
     public static String ANION_TYPE = "anion";
     public static String CATION_TYPE = "cation";
 
@@ -26,17 +26,11 @@ public class Ion extends AbstractEntity {
         this.notation = notation;
     }
 
-    @Override
     public boolean isConsistent() {
         return id >= 0
                 && type != null
                 && valence >= 1
                 && valence <= 7
                 && notation != null;
-    }
-
-    @Override
-    public String toString() {
-        return String.format("(%d - %s %d %s)", id, type, valence, notation);
     }
 }
