@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class ShowPagesController {
@@ -77,15 +78,12 @@ public class ShowPagesController {
 
     @GetMapping(value = {"/substances/create"})
     public String showCreateSubstance(HttpServletRequest request) {
-
         List<SubstanceClass> substanceClasses = dao.readSubstanceClasses();
-        List<Ion> anions = dao.readIons();
-        List<Ion> cations = dao.readIons();
-
+        List<Ion> anions = dao.readIons().stream().filter(ion->Ion.ANION_TYPE.equals(ion.getType())).collect(Collectors.toList());
+        List<Ion> cations = dao.readIons().stream().filter(ion->Ion.CATION_TYPE.equals(ion.getType())).collect(Collectors.toList());
         request.setAttribute("classes", substanceClasses);
         request.setAttribute("anions", anions);
         request.setAttribute("cations", cations);
-
         return "substances/create";
     }
 }
