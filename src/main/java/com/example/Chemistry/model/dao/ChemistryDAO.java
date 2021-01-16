@@ -39,8 +39,7 @@ public class ChemistryDAO implements IChemistryDAO {
                 FROM IONS
                 """;
 
-        try {
-            Connection connection = DatabaseConnector.getConnection();
+        try (Connection connection = DatabaseConnector.getConnection()) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(code);
 
@@ -62,8 +61,7 @@ public class ChemistryDAO implements IChemistryDAO {
                 FROM CLASSES;
                 """;
 
-        try {
-            Connection connection = DatabaseConnector.getConnection();
+        try (Connection connection = DatabaseConnector.getConnection()) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(code);
 
@@ -101,8 +99,7 @@ public class ChemistryDAO implements IChemistryDAO {
                          inner join IONS CATIONS on CATIONS.ID = FORMULAS.CATION
                 """;
 
-        try {
-            Connection connection = DatabaseConnector.getConnection();
+        try (Connection connection = DatabaseConnector.getConnection()) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(code);
 
@@ -122,13 +119,11 @@ public class ChemistryDAO implements IChemistryDAO {
     @Override
     public void createIon(String type, int valence, String notation) {
         String code = """
-                INSERT INTO ions
+                INSERT INTO ions (type, valence, notation)
                 VALUES(?, ?, ?);
                 """;
 
-        try {
-            Connection connection = DatabaseConnector.getConnection();
-
+        try (Connection connection = DatabaseConnector.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(code);
             statement.setString(1, type);
             statement.setInt(2, valence);
@@ -142,16 +137,16 @@ public class ChemistryDAO implements IChemistryDAO {
     @Override
     public void createSubstanceClass(String name) {
         String code = """
-                INSERT INTO CLASSES
+                INSERT INTO CLASSES (name)
                 VALUES(?);
                 """;
 
-        try {
-            Connection connection = DatabaseConnector.getConnection();
-
+        try (Connection connection = DatabaseConnector.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(code);
             statement.setString(1, name);
             statement.execute();
+
+            connection.commit();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -159,18 +154,24 @@ public class ChemistryDAO implements IChemistryDAO {
 
     @Override
     public void createSubstanceAndFormula(int substanceClassId, int anionId, int cationId, String notation) {
-        String code = """
-                INSERT INTO ions
+        String code1 = """
+                INSERT INTO formulas (anion, cation, notation)
                 VALUES(?, ?, ?);
                 """;
+        String code2 = """
+                INSERT INTO substances (id, formulaId, classId)
+                VALUES(IDENTITY(), IDENTITY(), ?);
+                """;
 
-        try {
-            Connection connection = DatabaseConnector.getConnection();
+        try (Connection connection = DatabaseConnector.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(code1);
+            statement.setInt(1, anionId);
+            statement.setInt(2, cationId);
+            statement.setString(3, notation);
+            statement.execute();
 
-            PreparedStatement statement = connection.prepareStatement(code);
-//            statement.setString(1, type);
-//            statement.setInt(2, valence);
-//            statement.setString(3, notation);
+            statement = connection.prepareStatement(code2);
+            statement.setInt(1, substanceClassId);
             statement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -188,9 +189,7 @@ public class ChemistryDAO implements IChemistryDAO {
                 WHERE id = ?;
                 """;
 
-        try {
-            Connection connection = DatabaseConnector.getConnection();
-
+        try (Connection connection = DatabaseConnector.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(code);
             statement.setString(1, type);
             statement.setInt(2, valence);
@@ -210,9 +209,7 @@ public class ChemistryDAO implements IChemistryDAO {
                 WHERE id = ?;
                 """;
 
-        try {
-            Connection connection = DatabaseConnector.getConnection();
-
+        try (Connection connection = DatabaseConnector.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(code);
 //            statement.setString(1, type);
 //            statement.setInt(2, valence);
@@ -232,9 +229,7 @@ public class ChemistryDAO implements IChemistryDAO {
                 WHERE id = ?;
                 """;
 
-        try {
-            Connection connection = DatabaseConnector.getConnection();
-
+        try (Connection connection = DatabaseConnector.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(code);
 //            statement.setString(1, type);
 //            statement.setInt(2, valence);
@@ -254,9 +249,7 @@ public class ChemistryDAO implements IChemistryDAO {
                 WHERE id = ?;
                 """;
 
-        try {
-            Connection connection = DatabaseConnector.getConnection();
-
+        try (Connection connection = DatabaseConnector.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(code);
             statement.setInt(1, id);
             statement.execute();
@@ -272,9 +265,7 @@ public class ChemistryDAO implements IChemistryDAO {
                 WHERE id = ?;
                 """;
 
-        try {
-            Connection connection = DatabaseConnector.getConnection();
-
+        try (Connection connection = DatabaseConnector.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(code);
             statement.setInt(1, id);
             statement.execute();
@@ -285,20 +276,32 @@ public class ChemistryDAO implements IChemistryDAO {
     }
 
     @Override
-    public void deleteSubstanceAndFormula(int substanceId, int formulaId) {
-        String code = """
-                DELETE FROM substances
+    public void deleteSubstanceAndFormula(int id) {
+        String code1 = """
+                DELETE FROM SUBSTANCES
+                WHERE id = ?;
+                """;
+        String code2 = """
+                DELETE FROM FORMULAS
                 WHERE id = ?;
                 """;
 
-        try {
-            Connection connection = DatabaseConnector.getConnection();
+        try (Connection connection = DatabaseConnector.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(code1);
+            statement.setInt(1, id);
+            statement.execute();
 
-            PreparedStatement statement = connection.prepareStatement(code);
-            statement.setInt(1, substanceId);
+            statement = connection.prepareStatement(code2);
+            statement.setInt(1, id);
             statement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void main(String[] args) {
+        ChemistryDAO dao = new ChemistryDAO();
+        dao.createSubstanceAndFormula(0, 1, 2, "3");
+        System.out.println(dao.readSubstances());
     }
 }

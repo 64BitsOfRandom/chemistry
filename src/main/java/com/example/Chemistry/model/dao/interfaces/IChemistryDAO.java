@@ -22,5 +22,5 @@ public interface IChemistryDAO {
 
     void deleteIon(int id);
     void deleteSubstanceClass(int id);
-    void deleteSubstanceAndFormula(int substanceId, int formulaId);
+    void deleteSubstanceAndFormula(int id);
 }
