@@ -3,7 +3,7 @@ package com.example.Chemistry.controller;
 import com.example.Chemistry.model.Ion;
 import com.example.Chemistry.model.Substance;
 import com.example.Chemistry.model.SubstanceClass;
-import com.example.Chemistry.model.dao.interfaces.IChemistryDAO;
+import com.example.Chemistry.model.dao.IChemistryDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -49,7 +49,10 @@ public class ShowPagesController {
     }
 
     @GetMapping(value = {"/ions/main"})
-    public String showIons(HttpServletRequest request) {
+    public String showIons(Model model, HttpServletRequest request) {
+        Ion ion__ = Ion.builder().build();
+//        request.setAttribute("ion__", ion__);
+        model.addAttribute("ion__", ion__);
 
         List<Ion> ions = dao.readIons();
         request.setAttribute("ions", ions);

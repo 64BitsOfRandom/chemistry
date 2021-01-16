@@ -1,4 +1,4 @@
-package com.example.Chemistry.model.dao.interfaces;
+package com.example.Chemistry.model.dao;
 
 import com.example.Chemistry.model.Ion;
 import com.example.Chemistry.model.Substance;

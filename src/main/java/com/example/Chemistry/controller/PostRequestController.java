@@ -1,6 +1,6 @@
 package com.example.Chemistry.controller;
 
-import com.example.Chemistry.model.dao.interfaces.IChemistryDAO;
+import com.example.Chemistry.model.dao.IChemistryDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;

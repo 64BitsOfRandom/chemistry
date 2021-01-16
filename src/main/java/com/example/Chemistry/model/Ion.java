@@ -11,10 +11,20 @@ public class Ion extends AbstractEntity {
     public static String ANION_TYPE = "anion";
     public static String CATION_TYPE = "cation";
 
-    private int id;
-    private String type;
-    private int valence;
-    private String notation;
+    public int id;
+    public String type;
+    public int valence;
+    public String notation;
+
+    public Ion() {
+    }
+
+    public Ion(int id, String type, int valence, String notation) {
+        this.id = id;
+        this.type = type;
+        this.valence = valence;
+        this.notation = notation;
+    }
 
     @Override
     public boolean isConsistent() {
