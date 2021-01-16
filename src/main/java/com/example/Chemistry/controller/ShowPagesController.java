@@ -4,6 +4,7 @@ import com.example.Chemistry.model.beans.Ion;
 import com.example.Chemistry.model.beans.Substance;
 import com.example.Chemistry.model.beans.SubstanceClass;
 import com.example.Chemistry.model.dao.IChemistryDAO;
+import com.example.Chemistry.view.CreateSubstanceForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -77,13 +78,17 @@ public class ShowPagesController {
     }
 
     @GetMapping(value = {"/substances/create"})
-    public String showCreateSubstance(HttpServletRequest request) {
+    public String showCreateSubstance(Model model, HttpServletRequest request) {
+
         List<SubstanceClass> substanceClasses = dao.readSubstanceClasses();
         List<Ion> anions = dao.readIons().stream().filter(ion->Ion.ANION_TYPE.equals(ion.getType())).collect(Collectors.toList());
         List<Ion> cations = dao.readIons().stream().filter(ion->Ion.CATION_TYPE.equals(ion.getType())).collect(Collectors.toList());
         request.setAttribute("classes", substanceClasses);
         request.setAttribute("anions", anions);
         request.setAttribute("cations", cations);
+
+        model.addAttribute("substanceForm", CreateSubstanceForm.builder().build());
+
         return "substances/create";
     }
 }

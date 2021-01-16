@@ -8,24 +8,25 @@
 <body>
 <div th:insert="top-plate :: top-plate"></div>
 <h4><span th:text="#{section.creation}"></span></h4>
-<form method="post" action="/ions/create">
+
+<form th:object="${ion}" method="post" action="/ions/create">
     <table>
         <tr>
             <td><span th:text="#{header.type}"></span></td>
             <td>
-                <input type="radio" id="input-anion" name="ion-type-input" checked/>
+                <input type="radio" id="input-anion" name="ion-type-input" th:field="${ion.type}" th:value="'анион'" checked/> <!-- todo: расхардкодить -->
                 <label for="input-anion">анион</label>
-                <input type="radio" id="input-cation" name="ion-type-input"/>
+                <input type="radio" id="input-cation" name="ion-type-input" th:field="${ion.type}" th:value="'катион'"/> <!-- todo: расхардкодить -->
                 <label for="input-cation">катион</label>
             </td>
         </tr>
         <tr>
             <td><label for="input-ion-notation"><span th:text="#{header.notation}"></span></label></td>
-            <td><input type="text" id="input-ion-notation"></td>
+            <td><input type="text" id="input-ion-notation" th:field="${ion.notation}"></td>
         </tr>
         <tr>
             <td><label for="input-ion-valence"><span th:text="#{header.valence}"></span></label></td>
-            <td><input type="number" id="input-ion-valence"></td>
+            <td><input type="number" id="input-ion-valence" th:field="${ion.valence}"></td>
         </tr>
     </table>
     <input type="submit" th:value="#{submit.create}">

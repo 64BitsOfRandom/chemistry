@@ -1,13 +1,14 @@
 package com.example.Chemistry.controller;
 
 import com.example.Chemistry.model.beans.Ion;
+import com.example.Chemistry.model.beans.SubstanceClass;
 import com.example.Chemistry.model.dao.IChemistryDAO;
+import com.example.Chemistry.view.CreateSubstanceForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestAttribute;
 
 import javax.servlet.http.HttpSession;
 import java.util.logging.Level;
@@ -20,33 +21,31 @@ public class PostRequestController {
     private IChemistryDAO dao;
 
     @PostMapping("/classes/create")
-    public String addClass(@RequestAttribute("className") String className) {
-        dao.createSubstanceClass(className);
-
-        return "classes/create";
+    public String addClass(@ModelAttribute("substanceClass") SubstanceClass substanceClass) {
+//        System.out.println(substanceClass.getName());
+        dao.createSubstanceClass(substanceClass.getName());
+        return "redirect:/classes/main";
     }
 
     @PostMapping(value = {"/ions/create"})
-    public String addIon(@RequestAttribute("type")Ion ion) {
+    public String addIon(@ModelAttribute("ion") Ion ion) {
+//        System.out.println(ion.getNotation());
         dao.createIon(ion.getType(), ion.getValence(), ion.getNotation());
-        return "ions/create";
+        return "redirect:/ions/main";
     }
 
     @PostMapping(value = {"/substances/create"})
-    public String addSubstance(@RequestAttribute("substanceClassId") int substanceClassId,
-                               @RequestAttribute("anionId") int anionId,
-                               @RequestAttribute("cationId") int cationId,
-                               @RequestAttribute("notation") String notation) {
-        dao.createSubstanceAndFormula(substanceClassId, anionId, cationId, notation);
-
-        return "substances/create";
+    public String addSubstance(@ModelAttribute("substanceForm") CreateSubstanceForm substanceForm) {
+//        System.out.println(substanceForm.getClassId() + "  " + substanceForm.getNotation());
+        dao.createSubstanceAndFormula(substanceForm.getClassId(), substanceForm.getAnionId(), substanceForm.getCationId(), substanceForm.getNotation());
+        return "redirect:/index";
     }
 
     @PostMapping(value = {"/login"})
     public String login(HttpSession session,
                         @ModelAttribute("username") String username,
                         @ModelAttribute("password") String password) {
-        Logger.getAnonymousLogger().log(Level.WARNING, "username "+username +"password "+ password);
+        Logger.getAnonymousLogger().log(Level.WARNING, "username " + username + "password " + password);
         if ("admin".equals(username) && "admin123".equals(password)) {
             session.setAttribute("isAdmin", true);
             return "redirect:/index";

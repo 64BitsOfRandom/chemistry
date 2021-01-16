@@ -9,13 +9,13 @@
 <div th:insert="top-plate :: top-plate"></div>
 <a th:href="@{/classes/create}" style="margin-bottom: 10px"><span th:text="#{links.create}"></span></a>
 
-<form th:object="${substanceClass}" method="post" action="/classes/main">
+<form th:object="${classToDelete}" method="post" action="/classes/main">
     <fieldset>
         <legend th:text="#{entries}"></legend>
         <input th:if="${session.isAdmin}" type="submit" th:value="#{submit.delete}">
         <div class="wrapper">
             <div class="box" th:each="class : ${classes}">
-                <input th:id="${class.id}" th:field="${substanceClass.id}" th:value="${class.id}" type="radio" checked/>
+                <input th:id="${class.id}" th:field="${classToDelete.id}" th:value="${class.id}" type="radio" checked/>
                 <label th:for="${class.id}" th:text="${class.name}"></label>
             </div>
         </div>
