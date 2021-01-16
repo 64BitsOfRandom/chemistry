@@ -22,10 +22,10 @@
         <tr th:each="substance : ${substances}">
             <td>
                 <input th:id="${substance.id}" type="radio" name="selector-ion" checked>
-                <label th:for="${substance.id}" th:text="${substance.formulaText}"></label>
+                <label th:for="${substance.id}" th:text="${substance.formula}"></label>
             </td>
-            <td th:text="${substance.notationText}"></td>
-            <td th:text="${substance.classText}"></td>
+            <td th:text="${substance.notation}"></td>
+            <td th:text="${substance.className}"></td>
         </tr>
     </table>
 </form>

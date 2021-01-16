@@ -12,11 +12,13 @@ public class Substance extends AbstractEntity {
 
     private String formula;
     private String notation;
+    private String className;
 
     @Override
     public boolean isConsistent() {
         return id >= 0
                 && formula != null
-                && notation != null;
+                && notation != null
+                && className != null;
     }
 }

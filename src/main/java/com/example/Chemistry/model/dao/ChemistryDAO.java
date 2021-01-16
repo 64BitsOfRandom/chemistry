@@ -32,14 +32,6 @@ public class ChemistryDAO implements IChemistryDAO {
                 .build();
     }
 
-    private static Substance readSubstanceFromResultSet(ResultSet resultSet) throws SQLException {
-        return Substance.builder()
-                .id(resultSet.getInt("id"))
-                .formula(resultSet.getString("formula"))
-                .notation(resultSet.getString("notation"))
-                .build();
-    }
-
     @Override
     public List<Ion> readIons() {
         String code = """
@@ -86,28 +78,42 @@ public class ChemistryDAO implements IChemistryDAO {
         return List.of();
     }
 
+    private static Substance readSubstanceFromResultSet(ResultSet resultSet) throws SQLException {
+        return Substance.builder()
+                .id(resultSet.getInt("id"))
+                .formula(resultSet.getString("formula"))
+                .notation(resultSet.getString("notation"))
+                .className(resultSet.getString("className"))
+                .build();
+    }
+
     @Override
     public List<Substance> readSubstances() {
-//        String code = """
-//                SELECT id as id,
-//                       _ as formula,
-//                       notation as notation
-//                FROM substances;
-//                """;
-//
-//        try {
-//            Connection connection = DatabaseConnector.getConnection();
-//            Statement statement = connection.createStatement();
-//            ResultSet resultSet = statement.executeQuery(code);
-//
-//            List<Substance> result = new ArrayList<>();
-//            while (resultSet.next()) {
-//                result.add(ChemistryDAO.readSubstanceFromResultSet(resultSet));
-//            }
-//            return result;
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
+        String code = """
+                select FORMULAS.ID                                    as id,
+                       FORMULAS.NOTATION                              as notation,
+                       CONCAT(ANIONS.NOTATION, '-', CATIONS.NOTATION) as formula,
+                       CLASSES.NAME                                   as className
+                from FORMULAS
+                         inner join SUBSTANCES on FORMULAS.ID = SUBSTANCES.ID and FORMULAS.ID = SUBSTANCES.FORMULAID
+                         inner join CLASSES on SUBSTANCES.CLASSID = CLASSES.ID
+                         inner join IONS ANIONS on ANIONS.ID = FORMULAS.ANION
+                         inner join IONS CATIONS on CATIONS.ID = FORMULAS.CATION
+                """;
+
+        try {
+            Connection connection = DatabaseConnector.getConnection();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(code);
+
+            List<Substance> result = new ArrayList<>();
+            while (resultSet.next()) {
+                result.add(ChemistryDAO.readSubstanceFromResultSet(resultSet));
+            }
+            return result;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return List.of();
     }
 
