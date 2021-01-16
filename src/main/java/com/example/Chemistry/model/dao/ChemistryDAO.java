@@ -16,12 +16,15 @@ public class ChemistryDAO implements IChemistryDAO {
     // read
 
     private static Ion readIonFromResultSet(ResultSet resultSet) throws SQLException {
-        return Ion.builder()
+        Ion ion = Ion.builder()
                 .id(resultSet.getInt("id"))
                 .type(resultSet.getString("type"))
                 .notation(resultSet.getString("notation"))
+//                .notation(resolveIon())
                 .valence(resultSet.getInt("valence"))
                 .build();
+        ion.setNotation(resolveIon(ion));
+        return ion;
     }
 
     private static SubstanceClass readSubstanceClassFromResultSet(ResultSet resultSet) throws SQLException {

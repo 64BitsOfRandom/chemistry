@@ -10,6 +10,7 @@
 <a th:href="@{/classes/create}" style="margin-bottom: 10px"><span th:text="#{links.create}"></span></a>
 
 <form th:object="${classToDelete}" method="post" action="/classes/main">
+    <input type="submit" th:value="#{submit.delete}">
     <fieldset>
         <legend th:text="#{entries}"></legend>
         <input th:if="${session.isAdmin}" type="submit" th:value="#{submit.delete}">
@@ -20,7 +21,6 @@
             </div>
         </div>
     </fieldset>
-    <p><input type="submit" value="Submit"/></p>
 </form>
 
 </body>

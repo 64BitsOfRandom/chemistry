@@ -21,14 +21,14 @@
     <div class="wrapper">
         <div class="box" th:each="anion : ${anions}">
             <input th:id="'anion' + ${anion.id}" th:field="${substanceForm.anionId}" th:value="${anion.id}" type="radio" checked/>
-            <label th:for="'anion' + ${anion.id}" th:text="${anion.notation}"></label>
+            <label th:for="'anion' + ${anion.id}" th:utext="${anion.notation}"></label>
         </div>
     </div>
     <label><span th:text="#{input.cation}"></span></label>
     <div class="wrapper">
         <div class="box" th:each="cation : ${cations}">
             <input th:id="'cation' + ${cation.id}" th:field="${substanceForm.cationId}" th:value="${cation.id}" type="radio" checked/>
-            <label th:for="'cation' + ${cation.id}" th:text="${cation.notation}"></label>
+            <label th:for="'cation' + ${cation.id}" th:utext="${cation.notation}"></label>
         </div>
     </div>
     <table>
