@@ -1,5 +1,8 @@
 package com.example.Chemistry.controller;
 
+import com.example.Chemistry.model.Ion;
+import com.example.Chemistry.model.Substance;
+import com.example.Chemistry.model.SubstanceClass;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -7,39 +10,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
-import java.util.Random;
-
-class IonView {
-    public int id = new Random().nextInt();
-    public String typeText = "type";
-    public String notationText = "notation";
-    public String valenceText = "valence";
-}
-
-class ClassView {
-    public int id = new Random().nextInt();
-    public String nameText = "name";
-}
-
-class SubstanceView {
-    public int id = new Random().nextInt();
-    public String formulaText = "formula";
-    public String notationText = "notation";
-    public String classText = "class";
-}
 
 @Controller
 public class ShowPagesController {
-    List<SubstanceView> substances;
-    List<ClassView> classes;
-    List<IonView> ions;
-    List<IonView> anions;
-    List<IonView> cations;
-
     @GetMapping(value = {"/", "/index"})
-    public String index(Model model, HttpServletRequest request) {
+    public String index(HttpServletRequest request) {
 
-        substances = List.of(new SubstanceView(), new SubstanceView());
+        List<Substance> substances = List.of();
         request.setAttribute("substances", substances);
 
         return "index";
@@ -58,43 +35,42 @@ public class ShowPagesController {
     @GetMapping(value = {"/classes/main"})
     public String showClasses(Model model, HttpServletRequest request) {
 
-        classes = List.of(new ClassView(), new ClassView());
-        request.setAttribute("classes", classes);
+        List<SubstanceClass> substanceClasses = List.of();
+        request.setAttribute("classes", substanceClasses);
 
         return "classes/main";
     }
 
     @GetMapping(value = {"/ions/main"})
-    public String showIons(Model model, HttpServletRequest request) {
+    public String showIons(HttpServletRequest request) {
 
-        ions = List.of(new IonView(), new IonView());
+        List<Ion> ions = List.of();
         request.setAttribute("ions", ions);
 
         return "ions/main";
     }
 
     @GetMapping(value = {"classes/create"})
-    public String showCreateClass(Model model) {
+    public String showCreateClass() {
         return "classes/create";
     }
 
     @GetMapping(value = {"/ions/create"})
-    public String showCreateIon(Model model) {
+    public String showCreateIon() {
         return "ions/create";
     }
 
     @GetMapping(value = {"/substances/create"})
-    public String showCreateSubstance(Model model, HttpServletRequest request) {
+    public String showCreateSubstance(HttpServletRequest request) {
 
-        classes = List.of(new ClassView(), new ClassView());
-        anions = List.of(new IonView(), new IonView());
-        cations = List.of(new IonView(), new IonView());
+        List<SubstanceClass> substanceClasses = List.of();
+        List<Ion> anions = List.of();
+        List<Ion> cations = List.of();
 
-        request.setAttribute("classes", classes);
+        request.setAttribute("classes", substanceClasses);
         request.setAttribute("anions", anions);
         request.setAttribute("cations", cations);
 
         return "substances/create";
     }
 }
-

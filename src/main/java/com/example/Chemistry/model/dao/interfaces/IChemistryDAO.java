@@ -11,13 +11,12 @@ public interface IChemistryDAO {
     List<SubstanceClass> readSubstanceClasses();
     List<Substance> readSubstances();
 
-    void createIon(Ion ion);
-    void createSubstanceClass(SubstanceClass substanceClass);
-    void createSubstanceAndFormula(int substanceId, int substanceClassId,
-                                   int formulaId, int anionId, int cationId, String notation);
+    void createIon(String type, int valence, String notation);
+    void createSubstanceClass(String name);
+    void createSubstanceAndFormula(int substanceClassId, int anionId, int cationId, String notation);
 
-    void updateIon(Ion ion);
-    void updateSubstanceClass(SubstanceClass substanceClass);
+    void updateIon(int id, String type, int valence, String notation);
+    void updateSubstanceClass(int id, String name);
     void updateSubstanceAndFormula(int substanceId, int substanceClassId,
                                    int formulaId, int anionId, int cationId, String notation);
 
