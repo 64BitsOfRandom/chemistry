@@ -3,9 +3,7 @@ package com.example.Chemistry.connector;
 import org.springframework.stereotype.Component;
 
 import java.nio.file.Path;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 @Component
 public class DatabaseConnector {
@@ -21,11 +19,16 @@ public class DatabaseConnector {
 
         if(connection != null) return connection;
         connection = DriverManager.getConnection(databaseUrl);
-
-        System.err.println(databaseUrl);
-        System.err.println(connection.getMetaData().getMaxColumnsInIndex());
-
         return connection;
     }
-
+    public static void main(String[] args) throws Exception {
+        PreparedStatement statement = getConnection().prepareStatement("SELECT * FROM IONS");
+        ResultSet resultSet = statement.executeQuery();
+        while (resultSet.next()){
+            String valence = resultSet.getString("valence");
+            String notation = resultSet.getString("notation");
+            String type = resultSet.getString("type");
+            System.out.printf("Valence: %s, notation: %s, type: %s\n",valence,notation,type);
+        }
+    }
 }

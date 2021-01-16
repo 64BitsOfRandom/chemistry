@@ -3,6 +3,9 @@ package com.example.Chemistry.controller;
 import com.example.Chemistry.model.Ion;
 import com.example.Chemistry.model.Substance;
 import com.example.Chemistry.model.SubstanceClass;
+import com.example.Chemistry.model.dao.interfaces.IChemistryDAO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,10 +16,14 @@ import java.util.List;
 
 @Controller
 public class ShowPagesController {
+    @Autowired
+    @Qualifier("chemistryDAO")
+    private IChemistryDAO dao;
+
     @GetMapping(value = {"/", "/index"})
     public String index(HttpServletRequest request) {
 
-        List<Substance> substances = List.of();
+        List<Substance> substances = dao.readSubstances();
         request.setAttribute("substances", substances);
 
         return "index";
@@ -35,7 +42,7 @@ public class ShowPagesController {
     @GetMapping(value = {"/classes/main"})
     public String showClasses(Model model, HttpServletRequest request) {
 
-        List<SubstanceClass> substanceClasses = List.of();
+        List<SubstanceClass> substanceClasses = dao.readSubstanceClasses();
         request.setAttribute("classes", substanceClasses);
 
         return "classes/main";
@@ -44,7 +51,7 @@ public class ShowPagesController {
     @GetMapping(value = {"/ions/main"})
     public String showIons(HttpServletRequest request) {
 
-        List<Ion> ions = List.of();
+        List<Ion> ions = dao.readIons();
         request.setAttribute("ions", ions);
 
         return "ions/main";
@@ -63,9 +70,9 @@ public class ShowPagesController {
     @GetMapping(value = {"/substances/create"})
     public String showCreateSubstance(HttpServletRequest request) {
 
-        List<SubstanceClass> substanceClasses = List.of();
-        List<Ion> anions = List.of();
-        List<Ion> cations = List.of();
+        List<SubstanceClass> substanceClasses = dao.readSubstanceClasses();
+        List<Ion> anions = dao.readIons();
+        List<Ion> cations = dao.readIons();
 
         request.setAttribute("classes", substanceClasses);
         request.setAttribute("anions", anions);

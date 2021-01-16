@@ -15,7 +15,7 @@
     <div class="wrapper">
         <div class="box" th:each="ion : ${ions}">
             <input th:id="${ion.id}" type="radio" name="selector-ion" checked>
-            <label th:for="${ion.id}" th:text="${ion.notationText}"></label>
+            <label th:for="${ion.id}" th:text="${ion.notation}"></label>
         </div>
     </div>
 </form>

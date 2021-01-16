@@ -15,7 +15,7 @@
     <div class="wrapper">
         <div class="box" th:each="class : ${classes}">
             <input th:id="${class.id}" type="radio" name="selector-class" checked>
-            <label th:for="${class.id}" th:text="${class.nameText}"></label>
+            <label th:for="${class.id}" th:text="${class.name}"></label>
         </div>
     </div>
 </form>
