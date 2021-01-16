@@ -22,7 +22,7 @@
         <tr th:each="substance : ${substances}">
             <td>
                 <input th:id="${substance.id}" th:field="${substanceToDelete.id}" th:value="${substance.id}" type="radio" checked/>
-                <label th:for="${substance.id}" th:text="${substance.formula}"></label>
+                <label th:for="${substance.id}" th:utext="${substance.formula}"></label>
             </td>
             <td th:text="${substance.notation}"></td>
             <td th:text="${substance.className}"></td>

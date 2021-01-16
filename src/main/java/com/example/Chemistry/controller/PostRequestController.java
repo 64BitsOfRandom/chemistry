@@ -22,21 +22,18 @@ public class PostRequestController {
 
     @PostMapping("/classes/create")
     public String addClass(@ModelAttribute("substanceClass") SubstanceClass substanceClass) {
-//        System.out.println(substanceClass.getName());
         dao.createSubstanceClass(substanceClass.getName());
         return "redirect:/classes/main";
     }
 
     @PostMapping(value = {"/ions/create"})
     public String addIon(@ModelAttribute("ion") Ion ion) {
-//        System.out.println(ion.getNotation());
         dao.createIon(ion.getType(), ion.getValence(), ion.getNotation());
         return "redirect:/ions/main";
     }
 
     @PostMapping(value = {"/substances/create"})
     public String addSubstance(@ModelAttribute("substanceForm") CreateSubstanceForm substanceForm) {
-//        System.out.println(substanceForm.getClassId() + "  " + substanceForm.getNotation());
         dao.createSubstanceAndFormula(substanceForm.getClassId(), substanceForm.getAnionId(), substanceForm.getCationId(), substanceForm.getNotation());
         return "redirect:/index";
     }

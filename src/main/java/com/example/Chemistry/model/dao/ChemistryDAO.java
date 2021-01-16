@@ -76,9 +76,20 @@ public class ChemistryDAO implements IChemistryDAO {
     }
 
     private static Substance readSubstanceFromResultSet(ResultSet resultSet) throws SQLException {
+        Ion cation = Ion.builder()
+                .type(Ion.CATION_TYPE)
+                .valence(resultSet.getInt("cation_valence"))
+                .notation(resultSet.getString("cation_notation"))
+                .build();
+        Ion anion = Ion.builder()
+                .type(Ion.ANION_TYPE)
+                .valence(resultSet.getInt("anion_valence"))
+                .notation(resultSet.getString("anion_notation"))
+                .build();
+        String formula = resolveFormula(cation, anion);
         return Substance.builder()
                 .id(resultSet.getInt("id"))
-                .formula(resultSet.getString("formula"))
+                .formula(formula)
                 .notation(resultSet.getString("notation"))
                 .className(resultSet.getString("className"))
                 .build();
@@ -87,15 +98,21 @@ public class ChemistryDAO implements IChemistryDAO {
     @Override
     public List<Substance> readSubstances() {
         String code = """
-                select FORMULAS.ID                                    as id,
-                       FORMULAS.NOTATION                              as notation,
-                       CONCAT(CATIONS.NOTATION, ANIONS.NOTATION) as formula,
-                       CLASSES.NAME                                   as className
+                select FORMULAS.ID       as id,
+                       FORMULAS.NOTATION as notation,
+                       CLASSES.NAME      as className,
+                
+                       CATIONS.VALENCE   as cation_valence,
+                       CATIONS.NOTATION  as cation_notation,
+                
+                       ANIONS.VALENCE    as anion_valence,
+                       ANIONS.NOTATION   as anion_notation
                 from FORMULAS
-                         inner join SUBSTANCES on FORMULAS.ID = SUBSTANCES.ID and FORMULAS.ID = SUBSTANCES.FORMULAID
+                         inner join SUBSTANCES on FORMULAS.ID = SUBSTANCES.ID
+                                                      and FORMULAS.ID = SUBSTANCES.FORMULAID
                          inner join CLASSES on SUBSTANCES.CLASSID = CLASSES.ID
                          inner join IONS ANIONS on ANIONS.ID = FORMULAS.ANION
-                         inner join IONS CATIONS on CATIONS.ID = FORMULAS.CATION
+                         inner join IONS CATIONS on CATIONS.ID = FORMULAS.CATION;
                 """;
 
         try (Connection connection = DatabaseConnector.getConnection()) {
@@ -299,9 +316,9 @@ public class ChemistryDAO implements IChemistryDAO {
     }
 
     private static String resolveFormula(Ion cation, Ion anion) {
-        if (!cation.getType().equalsIgnoreCase(Ion.CATION_TYPE) || !Ion.ANION_TYPE.equalsIgnoreCase(anion.getType())) {
-            throw new IllegalArgumentException("You should use different types of ions!");
-        }
+//        if (!cation.getType().equalsIgnoreCase(Ion.CATION_TYPE) || !Ion.ANION_TYPE.equalsIgnoreCase(anion.getType())) {
+//            throw new IllegalArgumentException("You should use different types of ions!");
+//        }
         if (cation.getValence() == anion.getValence()) return cation.getNotation() + anion.getNotation();
         if (cation.getValence() == 1) {
             return cation.getNotation() + "<sub>" + anion.getValence() + "</sub>" + anion.getNotation();
