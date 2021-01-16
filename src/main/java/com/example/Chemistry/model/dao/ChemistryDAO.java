@@ -298,9 +298,18 @@ public class ChemistryDAO implements IChemistryDAO {
         }
     }
 
-    public static void main(String[] args) {
-        ChemistryDAO dao = new ChemistryDAO();
-        dao.createSubstanceAndFormula(0, 1, 2, "3");
-        System.out.println(dao.readSubstances());
+    private static String resolveFormula(Ion cation, Ion anion) {
+        if (!cation.getType().equalsIgnoreCase(Ion.CATION_TYPE) || !Ion.ANION_TYPE.equalsIgnoreCase(anion.getType())) {
+            throw new IllegalArgumentException("You should use different types of ions!");
+        }
+        if (cation.getValence() == anion.getValence()) return cation.getNotation() + anion.getNotation();
+        if (cation.getValence() == 1) {
+            return cation.getNotation() + "<sub>" + anion.getValence() + "</sub>" + anion.getNotation();
+        }
+        if (anion.getValence() == 1) {
+            return cation.getNotation() + anion.getNotation() + "<sub>" + cation.getValence() + "</sub>";
+        } else {
+            return cation.getNotation() + "<sub>" + anion.getValence() + "</sub>" + anion.getNotation() + "<sub>" + cation.getValence() + "</sub>";
+        }
     }
 }
