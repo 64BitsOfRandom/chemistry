@@ -4,12 +4,10 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.sql.ResultSet;
-
 @Builder
 @Getter
 @Setter
-public class SubstanceClass extends Entity {
+public class SubstanceClass extends AbstractEntity {
     private int id;
     private String name;
 

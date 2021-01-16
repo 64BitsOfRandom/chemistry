@@ -7,7 +7,7 @@ import lombok.Setter;
 @Builder
 @Getter
 @Setter
-public class Ion extends Entity {
+public class Ion extends AbstractEntity {
     public static String ANION_TYPE = "anion";
     public static String CATION_TYPE = "cation";
 
