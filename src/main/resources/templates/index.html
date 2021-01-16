@@ -8,8 +8,9 @@
 <body>
 
 <div th:insert="top-plate :: top-plate"></div>
-<a href="/substances/create" style="margin-bottom: 10px"><span th:text="#{links.create}"></span></a>
-<form method="post" action="/deleteEntity">
+<a th:href="@{/substances/create}" style="margin-bottom: 10px"><span th:text="#{links.create}"></span></a>
+<div th:if="${substances.empty}"><h3 th:text="#{inavailable.substances}"></h3></div>
+<form th:unless="${substances.empty}" method="post" action="/deleteEntity">
     <!--    TODO:передать id выделенного элемента-->
     <input type="hidden" name="entity" value="substances">
     <input type="submit" th:value="#{submit.delete}">

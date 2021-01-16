@@ -89,7 +89,7 @@ public class ChemistryDAO implements IChemistryDAO {
         String code = """
                 select FORMULAS.ID                                    as id,
                        FORMULAS.NOTATION                              as notation,
-                       CONCAT(ANIONS.NOTATION, '-', CATIONS.NOTATION) as formula,
+                       CONCAT(CATIONS.NOTATION, ANIONS.NOTATION) as formula,
                        CLASSES.NAME                                   as className
                 from FORMULAS
                          inner join SUBSTANCES on FORMULAS.ID = SUBSTANCES.ID and FORMULAS.ID = SUBSTANCES.FORMULAID
