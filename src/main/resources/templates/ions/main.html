@@ -7,11 +7,11 @@
 </head>
 <body>
 <div th:insert="top-plate :: top-plate"></div>
-<a href="/ions/create" style="margin-bottom: 10px"><span th:text="#{links.create}"></span></a>
+<a th:if="${session.isAdmin}" th:href="@{/ions/create}" style="margin-bottom: 10px"><span th:text="#{links.create}"></span></a>
 <form method="post" action="/deleteEntity">
 <!--    TODO:передать id выделенного элемента-->
     <input type="hidden" name="entity" value="ions">
-    <input type="submit" th:value="#{submit.delete}">
+    <input th:if="${session.isAdmin}" type="submit" th:value="#{submit.delete}">
     <div class="wrapper">
         <div class="box" th:each="ion : ${ions}">
             <input th:id="${ion.id}" type="radio" name="selector-ion" checked>

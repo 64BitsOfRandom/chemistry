@@ -7,7 +7,7 @@
 </head>
 <body>
 <div th:insert="top-plate :: top-plate"></div>
-<h4><span th:text="#{section.creation}"></span></h4>
+<h4 th:if="${session.isAdmin}"><span th:text="#{section.creation}"></span></h4>
 <form method="post" action="/classes/create">
     <table>
         <tr>
@@ -15,7 +15,7 @@
             <td><input type="text" id="input-class-name"></td>
         </tr>
     </table>
-    <input type="submit" th:value="#{submit.create}">
+    <input th:if="${session.isAdmin}" type="submit" th:value="#{submit.create}">
 </form>
 </body>
 </html>
