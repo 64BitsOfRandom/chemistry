@@ -18,7 +18,7 @@ public class Ion {
 
     public boolean isConsistent() {
         return id >= 0
-                && type != null
+                && (ANION_TYPE.equalsIgnoreCase(type) || CATION_TYPE.equalsIgnoreCase(type))
                 && valence >= 1
                 && valence <= 7
                 && notation != null;

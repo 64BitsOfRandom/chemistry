@@ -299,7 +299,7 @@ public class ChemistryDAO implements IChemistryDAO {
     }
 
     private static String resolveFormula(Ion cation, Ion anion) {
-        if (!cation.getType().equalsIgnoreCase(Ion.CATION_TYPE) || !Ion.ANION_TYPE.equalsIgnoreCase(anion.getType())) {
+        if (!cation.isConsistent() || !anion.isConsistent()) {
             throw new IllegalArgumentException("You should use different types of ions!");
         }
         if (cation.getValence() == anion.getValence()) return cation.getNotation() + anion.getNotation();
@@ -311,5 +311,11 @@ public class ChemistryDAO implements IChemistryDAO {
         } else {
             return cation.getNotation() + "<sub>" + anion.getValence() + "</sub>" + anion.getNotation() + "<sub>" + cation.getValence() + "</sub>";
         }
+    }
+    private static String resolveIon(Ion ion) {
+        if (!ion.isConsistent()) {
+            throw new IllegalArgumentException("You should use different types of ions!");
+        }
+        return ion.getNotation() +"<sup>" + (Ion.CATION_TYPE.equalsIgnoreCase(ion.getType()) ? "+" : "-").repeat(ion.getValence()) +"</sup>";
     }
 }
