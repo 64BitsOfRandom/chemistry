@@ -17,26 +17,20 @@ public class DeleteController {
     private IChemistryDAO dao;
 
     @PostMapping(value = {"/ions/main"})
-    public String deleteIon(@ModelAttribute("ion__") Ion ion__) {
-        int id = ion__.id;
-        System.out.printf("delete ion %s\n", id);
-
+    public String deleteIon(@ModelAttribute("ionToDelete") Ion ionToDelete) {
+        dao.deleteIon(ionToDelete.getId());
         return "redirect:/ions/main";
     }
 
     @PostMapping(value = {"/classes/main"})
-    public String deleteClass(@ModelAttribute("class__") SubstanceClass class__) {
-        int id = class__.id;
-        System.out.printf("delete class__ %s\n", id);
-
+    public String deleteClass(@ModelAttribute("classToDelete") SubstanceClass classToDelete) {
+        dao.deleteSubstanceClass(classToDelete.getId());
         return "redirect:/classes/main";
     }
 
     @PostMapping(value = {"/index"})
-    public String deleteSubstance(@ModelAttribute("substance__") Substance substance__) {
-        int id = substance__.id;
-        System.out.printf("delete substance__ %s\n", id);
-
+    public String deleteSubstance(@ModelAttribute("substanceToDelete") Substance substanceToDelete) {
+        dao.deleteSubstanceAndFormula(substanceToDelete.getId());
         return "redirect:/index";
     }
 }

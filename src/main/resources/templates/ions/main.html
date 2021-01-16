@@ -10,13 +10,13 @@
 <a th:if="${session.isAdmin}" th:href="@{/ions/create}" style="margin-bottom: 10px"><span
         th:text="#{links.create}"></span></a>
 
-<form th:object="${ion__}" method="post" action="/ions/main">
+<form th:object="${ionToDelete}" method="post" action="/ions/main">
     <fieldset>
         <legend th:text="#{entries}"></legend>
         <input th:if="${session.isAdmin}" type="submit" th:value="#{submit.delete}">
         <div class="wrapper">
             <div class="box" th:each="ion : ${ions}">
-                <input th:id="${ion.id}" th:field="${ion__.id}" th:value="${ion.id}" type="radio" checked/>
+                <input th:id="${ion.id}" th:field="${ionToDelete.id}" th:value="${ion.id}" type="radio" checked/>
                 <label th:for="${ion.id}" th:text="${ion.notation}"></label>
             </div>
         </div>

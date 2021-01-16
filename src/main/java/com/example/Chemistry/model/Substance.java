@@ -8,11 +8,11 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Substance extends AbstractEntity {
-    public int id;
+    private int id;
 
-    public String formula;
-    public String notation;
-    public String className;
+    private String formula;
+    private String notation;
+    private String className;
 
     public Substance() {
     }

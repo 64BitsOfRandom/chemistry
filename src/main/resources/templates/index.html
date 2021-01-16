@@ -11,7 +11,7 @@
 <a th:href="@{/substances/create}" style="margin-bottom: 10px"><span th:text="#{links.create}"></span></a>
 <!--<div th:if="${substances.empty}"><h3 th:text="#{inavailable.substances}"></h3></div>-->
 
-<form th:object="${substance__}" method="post" action="/index">
+<form th:object="${substanceToDelete}" method="post" action="/index">
     <input type="submit" th:value="#{submit.delete}">
     <table>
         <tr>
@@ -21,7 +21,7 @@
         </tr>
         <tr th:each="substance : ${substances}">
             <td>
-                <input th:id="${substance.id}" th:field="${substance__.id}" th:value="${substance.id}" type="radio" checked/>
+                <input th:id="${substance.id}" th:field="${substanceToDelete.id}" th:value="${substance.id}" type="radio" checked/>
                 <label th:for="${substance.id}" th:text="${substance.formula}"></label>
             </td>
             <td th:text="${substance.notation}"></td>
