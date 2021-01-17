@@ -6,29 +6,46 @@ import com.example.Chemistry.model.beans.Substance;
 import com.example.Chemistry.model.beans.SubstanceClass;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@PropertySource("classpath:scripts.properties")
 @Component("chemistryDAO")
 public class ChemistryDAO implements IChemistryDAO {
     private static final Logger log = LogManager.getLogger(ChemistryDAO.class);
+    @Value("${read.ions}")
+    private String readIonsScript;
+    @Value("${read.substanceClasses}")
+    private String readSubstanceClassesScript;
+    @Value("${read.substances}")
+    private String readSubstancesScript;
+    @Value("${create.ion}")
+    private String createIonScript;
+    @Value("${create.substanceClass}")
+    private String createSubstanceClassScript;
+    @Value("${create.substance}")
+    private String createSubstanceScript;
+    @Value("${create.formula}")
+    private String createFormulaScript;
+    @Value("${update.ion}")
+    private String updateIonScript;
+    @Value("${delete.ion}")
+    private String deleteIonScript;
+    @Value("${delete.substanceFormula}")
+    private String deleteSubstanceFormulaProcedure;
+
 
     @Override
     public List<Ion> readIons() {
+        log.info("read ions invoked");
         List<Ion> result = new ArrayList<>();
-        String script = """
-                SELECT *
-                FROM IONS
-                """;
-
         try (Connection connection = DatabaseConnector.getConnection();
-             PreparedStatement statement = connection.prepareStatement(script);
+             PreparedStatement statement = connection.prepareStatement(readIonsScript);
              ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
                 result.add(readIonFromResultSet(resultSet));
@@ -42,12 +59,8 @@ public class ChemistryDAO implements IChemistryDAO {
     @Override
     public List<SubstanceClass> readSubstanceClasses() {
         List<SubstanceClass> result = new ArrayList<>();
-        String script = """
-                SELECT *
-                FROM CLASSES;
-                """;
         try (Connection connection = DatabaseConnector.getConnection()) {
-            PreparedStatement statement = connection.prepareStatement(script);
+            PreparedStatement statement = connection.prepareStatement(readSubstanceClassesScript);
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
@@ -62,11 +75,8 @@ public class ChemistryDAO implements IChemistryDAO {
     @Override
     public List<Substance> readSubstances() {
         List<Substance> result = new ArrayList<>();
-        String script = """
-                SELECT * FROM formulas_substances;
-                """;
         try (Connection connection = DatabaseConnector.getConnection();
-             PreparedStatement statement = connection.prepareStatement(script);
+             PreparedStatement statement = connection.prepareStatement(readSubstancesScript);
              ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
                 result.add(readSubstanceFromResultSet(resultSet));
@@ -79,13 +89,8 @@ public class ChemistryDAO implements IChemistryDAO {
 
     @Override
     public void createIon(String type, int valence, String notation) {
-        String script = """
-                INSERT INTO ions (type, valence, notation)
-                VALUES(?, ?, ?);
-                """;
-
         try (Connection connection = DatabaseConnector.getConnection();
-             PreparedStatement statement = connection.prepareStatement(script)) {
+             PreparedStatement statement = connection.prepareStatement(createIonScript)) {
             statement.setString(1, type);
             statement.setInt(2, valence);
             statement.setString(3, notation);
@@ -97,15 +102,10 @@ public class ChemistryDAO implements IChemistryDAO {
 
     @Override
     public void createSubstanceClass(String name) {
-        String script = """
-                INSERT INTO CLASSES (name)
-                VALUES(?);
-                """;
         try (Connection connection = DatabaseConnector.getConnection();
-             PreparedStatement statement = connection.prepareStatement(script)) {
+             PreparedStatement statement = connection.prepareStatement(createSubstanceClassScript)) {
             statement.setString(1, name);
             statement.execute();
-//            connection.commit();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -113,17 +113,9 @@ public class ChemistryDAO implements IChemistryDAO {
 
     @Override
     public void createSubstanceAndFormula(int substanceClassId, int anionId, int cationId, String notation) {
-        String formulasScript = """
-                INSERT INTO formulas (anion, cation, notation)
-                VALUES(?, ?, ?);
-                """;
-        String substancesScript = """
-                INSERT INTO substances (id, formulaId, classId)
-                VALUES(IDENTITY(), IDENTITY(), ?);
-                """;
         try (Connection connection = DatabaseConnector.getConnection();
-             PreparedStatement statement = connection.prepareStatement(formulasScript);
-             PreparedStatement substanceStatement = connection.prepareStatement(substancesScript)) {
+             PreparedStatement statement = connection.prepareStatement(createFormulaScript);
+             PreparedStatement substanceStatement = connection.prepareStatement(createSubstanceScript)) {
             statement.setInt(1, anionId);
             statement.setInt(2, cationId);
             statement.setString(3, notation);
@@ -137,14 +129,8 @@ public class ChemistryDAO implements IChemistryDAO {
 
     @Override
     public void updateIon(int id, String type, int valence, String notation) {
-        String script = """
-                UPDATE substances
-                SET formulaId = ?,
-                    classId = ?
-                WHERE id = ?;
-                """;
         try (Connection connection = DatabaseConnector.getConnection();
-             PreparedStatement statement = connection.prepareStatement(script)) {
+             PreparedStatement statement = connection.prepareStatement(updateIonScript)) {
             statement.setString(1, type);
             statement.setInt(2, valence);
             statement.setString(3, notation);
@@ -156,12 +142,8 @@ public class ChemistryDAO implements IChemistryDAO {
 
     @Override
     public void deleteIon(int id) {
-        String script = """
-                DELETE FROM ions
-                WHERE id = ?;
-                """;
         try (Connection connection = DatabaseConnector.getConnection();
-             PreparedStatement statement = connection.prepareStatement(script)) {
+             PreparedStatement statement = connection.prepareStatement(deleteIonScript)) {
             statement.setInt(1, id);
             statement.execute();
         } catch (SQLException e) {
@@ -171,12 +153,8 @@ public class ChemistryDAO implements IChemistryDAO {
 
     @Override
     public void deleteSubstanceClass(int id) {
-        String script = """
-                DELETE FROM CLASSES
-                WHERE id = ?;
-                """;
         try (Connection connection = DatabaseConnector.getConnection();
-             PreparedStatement statement = connection.prepareStatement(script)) {
+             PreparedStatement statement = connection.prepareStatement(deleteIonScript)) {
             statement.setInt(1, id);
             statement.execute();
         } catch (SQLException e) {
@@ -186,21 +164,11 @@ public class ChemistryDAO implements IChemistryDAO {
 
     @Override
     public void deleteSubstanceAndFormula(int id) {
-        String substancesScript = """
-                DELETE FROM SUBSTANCES
-                WHERE id = ?;
-                """;
-        String formulasScript = """
-                DELETE FROM FORMULAS
-                WHERE id = ?;
-                """;
         try (Connection connection = DatabaseConnector.getConnection();
-             PreparedStatement substancesStatement = connection.prepareStatement(substancesScript);
-             PreparedStatement formulasStatement = connection.prepareStatement(formulasScript)) {
-            substancesStatement.setInt(1, id);
-            substancesStatement.execute();
-            formulasStatement.setInt(1, id);
-            formulasStatement.execute();
+             CallableStatement callableStatement = connection.prepareCall(deleteSubstanceFormulaProcedure);
+        ) {
+            callableStatement.setInt(1,id);
+            callableStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
         }

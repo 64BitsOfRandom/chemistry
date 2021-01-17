@@ -37,7 +37,6 @@ CREATE TABLE IF NOT EXISTS SYSTEM_LOG(
     message VARCHAR(256) NOT NULL
 );
 
--- init
 
 CREATE VIEW formulas_substances AS
 select FORMULAS.ID       as id,
@@ -56,4 +55,8 @@ from FORMULAS
          inner join IONS ANIONS on ANIONS.ID = FORMULAS.ANION
          inner join IONS CATIONS on CATIONS.ID = FORMULAS.CATION;
 
--- run
+CREATE PROCEDURE delete_substance(IN substanceId INTEGER) MODIFIES SQL DATA
+BEGIN ATOMIC
+DELETE FROM SUBSTANCES WHERE id = substanceId;
+DELETE FROM FORMULAS WHERE id = substanceId;
+END;
