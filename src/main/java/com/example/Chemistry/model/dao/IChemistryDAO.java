@@ -16,9 +16,6 @@ public interface IChemistryDAO {
     void createSubstanceAndFormula(int substanceClassId, int anionId, int cationId, String notation);
 
     void updateIon(int id, String type, int valence, String notation);
-    void updateSubstanceClass(int id, String name);
-    void updateSubstanceAndFormula(int substanceId, int substanceClassId,
-                                   int formulaId, int anionId, int cationId, String notation);
 
     void deleteIon(int id);
     void deleteSubstanceClass(int id);
