@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpSession;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 @Controller
 public class PostRequestController {
@@ -42,7 +40,6 @@ public class PostRequestController {
     public String login(HttpSession session,
                         @ModelAttribute("username") String username,
                         @ModelAttribute("password") String password) {
-        Logger.getAnonymousLogger().log(Level.WARNING, "username " + username + "password " + password);
         if ("admin".equals(username) && "admin123".equals(password)) {
             session.setAttribute("isAdmin", true);
             return "redirect:/index";
