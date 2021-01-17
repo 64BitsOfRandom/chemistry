@@ -36,3 +36,24 @@ CREATE TABLE IF NOT EXISTS SYSTEM_LOG(
     type varchar(16) NOT NULL,
     message VARCHAR(256) NOT NULL
 );
+
+-- init
+
+CREATE VIEW formulas_substances AS
+select FORMULAS.ID       as id,
+       FORMULAS.NOTATION as notation,
+       CLASSES.NAME      as className,
+
+       CATIONS.VALENCE   as cation_valence,
+       CATIONS.NOTATION  as cation_notation,
+
+       ANIONS.VALENCE    as anion_valence,
+       ANIONS.NOTATION   as anion_notation
+from FORMULAS
+         inner join SUBSTANCES on FORMULAS.ID = SUBSTANCES.ID
+    and FORMULAS.ID = SUBSTANCES.FORMULAID
+         inner join CLASSES on SUBSTANCES.CLASSID = CLASSES.ID
+         inner join IONS ANIONS on ANIONS.ID = FORMULAS.ANION
+         inner join IONS CATIONS on CATIONS.ID = FORMULAS.CATION;
+
+-- run

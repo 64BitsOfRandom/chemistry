@@ -36,6 +36,7 @@ public class ChemistryDAO implements IChemistryDAO {
 
     @Override
     public List<Ion> readIons() {
+        List<Ion> result = new ArrayList<>();
         String code = """
                 SELECT *
                 FROM IONS
@@ -45,19 +46,19 @@ public class ChemistryDAO implements IChemistryDAO {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(code);
 
-            List<Ion> result = new ArrayList<>();
             while (resultSet.next()) {
                 result.add(ChemistryDAO.readIonFromResultSet(resultSet));
             }
             return result;
         } catch (SQLException e) {
             e.printStackTrace();
-            return List.of();
+            return result;
         }
     }
 
     @Override
     public List<SubstanceClass> readSubstanceClasses() {
+        List<SubstanceClass> result = new ArrayList<>();
         String code = """
                 SELECT *
                 FROM CLASSES;
@@ -67,7 +68,7 @@ public class ChemistryDAO implements IChemistryDAO {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(code);
 
-            List<SubstanceClass> result = new ArrayList<>();
+
             while (resultSet.next()) {
                 result.add(ChemistryDAO.readSubstanceClassFromResultSet(resultSet));
             }
@@ -75,7 +76,7 @@ public class ChemistryDAO implements IChemistryDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return List.of();
+        return result;
     }
 
     private static Substance readSubstanceFromResultSet(ResultSet resultSet) throws SQLException {
@@ -100,29 +101,16 @@ public class ChemistryDAO implements IChemistryDAO {
 
     @Override
     public List<Substance> readSubstances() {
+        List<Substance> result = new ArrayList<>();
         String code = """
-                select FORMULAS.ID       as id,
-                       FORMULAS.NOTATION as notation,
-                       CLASSES.NAME      as className,
-                
-                       CATIONS.VALENCE   as cation_valence,
-                       CATIONS.NOTATION  as cation_notation,
-                
-                       ANIONS.VALENCE    as anion_valence,
-                       ANIONS.NOTATION   as anion_notation
-                from FORMULAS
-                         inner join SUBSTANCES on FORMULAS.ID = SUBSTANCES.ID
-                                                      and FORMULAS.ID = SUBSTANCES.FORMULAID
-                         inner join CLASSES on SUBSTANCES.CLASSID = CLASSES.ID
-                         inner join IONS ANIONS on ANIONS.ID = FORMULAS.ANION
-                         inner join IONS CATIONS on CATIONS.ID = FORMULAS.CATION;
+                SELECT * FROM formulas_substances;
                 """;
 
         try (Connection connection = DatabaseConnector.getConnection()) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(code);
 
-            List<Substance> result = new ArrayList<>();
+
             while (resultSet.next()) {
                 result.add(ChemistryDAO.readSubstanceFromResultSet(resultSet));
             }
@@ -130,7 +118,7 @@ public class ChemistryDAO implements IChemistryDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return List.of();
+        return result;
     }
 
     // create

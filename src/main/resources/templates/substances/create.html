@@ -34,10 +34,10 @@
     <table>
         <tr>
             <td><label for="input-notation" th:text="#{input.notation}"></label></td>
-            <td><input type="text" id="input-notation" th:field="${substanceForm.notation}"></td>
+            <td><input type="text" id="input-notation" th:field="${substanceForm.notation}" checked></td>
         </tr>
     </table>
-    <input th:if="${session.isAdmin}" type="submit" th:value="#{submit.create}">
+    <input type="submit" th:value="#{submit.create}">
 </form>
 </body>
 </html>
