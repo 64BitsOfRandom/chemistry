@@ -51,29 +51,30 @@ public class ChemistryDAO implements IChemistryDAO {
                 result.add(readIonFromResultSet(resultSet));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
         return result;
     }
 
     @Override
     public List<SubstanceClass> readSubstanceClasses() {
+        log.info("readSubstanceClasses invoked");
         List<SubstanceClass> result = new ArrayList<>();
         try (Connection connection = DatabaseConnector.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(readSubstanceClassesScript);
             ResultSet resultSet = statement.executeQuery();
-
             while (resultSet.next()) {
                 result.add(readSubstanceClassFromResultSet(resultSet));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
         return result;
     }
 
     @Override
     public List<Substance> readSubstances() {
+        log.info("readSubstances invoked");
         List<Substance> result = new ArrayList<>();
         try (Connection connection = DatabaseConnector.getConnection();
              PreparedStatement statement = connection.prepareStatement(readSubstancesScript);
@@ -82,13 +83,14 @@ public class ChemistryDAO implements IChemistryDAO {
                 result.add(readSubstanceFromResultSet(resultSet));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
         return result;
     }
 
     @Override
     public void createIon(String type, int valence, String notation) {
+        log.info("createIon invoked");
         try (Connection connection = DatabaseConnector.getConnection();
              PreparedStatement statement = connection.prepareStatement(createIonScript)) {
             statement.setString(1, type);
@@ -96,23 +98,25 @@ public class ChemistryDAO implements IChemistryDAO {
             statement.setString(3, notation);
             statement.execute();
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
     }
 
     @Override
     public void createSubstanceClass(String name) {
+        log.info("createSubstanceClass invoked");
         try (Connection connection = DatabaseConnector.getConnection();
              PreparedStatement statement = connection.prepareStatement(createSubstanceClassScript)) {
             statement.setString(1, name);
             statement.execute();
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
     }
 
     @Override
     public void createSubstanceAndFormula(int substanceClassId, int anionId, int cationId, String notation) {
+        log.info("createSubstanceAndFormula invoked");
         try (Connection connection = DatabaseConnector.getConnection();
              PreparedStatement statement = connection.prepareStatement(createFormulaScript);
              PreparedStatement substanceStatement = connection.prepareStatement(createSubstanceScript)) {
@@ -123,12 +127,13 @@ public class ChemistryDAO implements IChemistryDAO {
             substanceStatement.setInt(1, substanceClassId);
             substanceStatement.execute();
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
     }
 
     @Override
     public void updateIon(int id, String type, int valence, String notation) {
+        log.info("updateIon invoked");
         try (Connection connection = DatabaseConnector.getConnection();
              PreparedStatement statement = connection.prepareStatement(updateIonScript)) {
             statement.setString(1, type);
@@ -136,41 +141,44 @@ public class ChemistryDAO implements IChemistryDAO {
             statement.setString(3, notation);
             statement.execute();
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
     }
 
     @Override
     public void deleteIon(int id) {
+        log.info("deleteIon invoked");
         try (Connection connection = DatabaseConnector.getConnection();
              PreparedStatement statement = connection.prepareStatement(deleteIonScript)) {
             statement.setInt(1, id);
             statement.execute();
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
     }
 
     @Override
     public void deleteSubstanceClass(int id) {
+        log.info("deleteSubstanceClass invoked");
         try (Connection connection = DatabaseConnector.getConnection();
              PreparedStatement statement = connection.prepareStatement(deleteIonScript)) {
             statement.setInt(1, id);
             statement.execute();
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
     }
 
     @Override
     public void deleteSubstanceAndFormula(int id) {
+        log.info("deleteSubstanceAndFormula invoked");
         try (Connection connection = DatabaseConnector.getConnection();
              CallableStatement callableStatement = connection.prepareCall(deleteSubstanceFormulaProcedure);
         ) {
             callableStatement.setInt(1,id);
             callableStatement.execute();
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
     }
 
