@@ -13,7 +13,6 @@
     <input th:if="${session.isAdmin}" type="submit" th:value="#{submit.delete}">
     <fieldset>
         <legend th:text="#{entries}"></legend>
-        <input th:if="${session.isAdmin}" type="submit" th:value="#{submit.delete}">
         <div class="wrapper">
             <div class="box" th:each="class : ${classes}">
                 <input th:id="${class.id}" th:field="${classToDelete.id}" th:value="${class.id}" type="radio" checked/>

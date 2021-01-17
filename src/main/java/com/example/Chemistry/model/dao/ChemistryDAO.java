@@ -264,6 +264,6 @@ public class ChemistryDAO implements IChemistryDAO {
         if (!ion.isConsistent()) {
             throw new IllegalArgumentException("You should use different types of ions!");
         }
-        return "%s<sup>%s</sup>".formatted(ion.getNotation(), Ion.CATION_TYPE.equalsIgnoreCase(ion.getType()) ? "+" : "-").repeat(ion.getValence());
+        return "%s<sup>%s</sup>".formatted(ion.getNotation(), (Ion.CATION_TYPE.equalsIgnoreCase(ion.getType()) ? "+" : "-").repeat(ion.getValence()));
     }
 }
