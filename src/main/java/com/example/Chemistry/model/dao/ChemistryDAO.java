@@ -4,6 +4,8 @@ import com.example.Chemistry.connector.DatabaseConnector;
 import com.example.Chemistry.model.beans.Ion;
 import com.example.Chemistry.model.beans.Substance;
 import com.example.Chemistry.model.beans.SubstanceClass;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
@@ -15,8 +17,7 @@ import java.util.List;
 
 @Component("chemistryDAO")
 public class ChemistryDAO implements IChemistryDAO {
-
-    // read
+    private static final Logger log = LogManager.getLogger(ChemistryDAO.class);
 
     private static Ion readIonFromResultSet(ResultSet resultSet) throws SQLException {
         Ion ion = Ion.builder()
@@ -26,6 +27,7 @@ public class ChemistryDAO implements IChemistryDAO {
                 .valence(resultSet.getInt("valence"))
                 .build();
         ion.setNotation(resolveIon(ion));
+//        log.info("Substance {} added", substance.getFormulaId());
         return ion;
     }
 
@@ -44,18 +46,16 @@ public class ChemistryDAO implements IChemistryDAO {
                 FROM IONS
                 """;
 
-        try (Connection connection = DatabaseConnector.getConnection()) {
-            PreparedStatement statement = connection.prepareStatement(script);
-            ResultSet resultSet = statement.executeQuery();
-
+        try (Connection connection = DatabaseConnector.getConnection();
+             PreparedStatement statement = connection.prepareStatement(script);
+             ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
                 result.add(ChemistryDAO.readIonFromResultSet(resultSet));
             }
-            return result;
         } catch (SQLException e) {
             e.printStackTrace();
-            return result;
         }
+        return result;
     }
 
     @Override
@@ -65,7 +65,6 @@ public class ChemistryDAO implements IChemistryDAO {
                 SELECT *
                 FROM CLASSES;
                 """;
-
         try (Connection connection = DatabaseConnector.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(script);
             ResultSet resultSet = statement.executeQuery();
@@ -73,7 +72,6 @@ public class ChemistryDAO implements IChemistryDAO {
             while (resultSet.next()) {
                 result.add(ChemistryDAO.readSubstanceClassFromResultSet(resultSet));
             }
-            return result;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -112,7 +110,6 @@ public class ChemistryDAO implements IChemistryDAO {
             while (resultSet.next()) {
                 result.add(ChemistryDAO.readSubstanceFromResultSet(resultSet));
             }
-            return result;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -147,7 +144,7 @@ public class ChemistryDAO implements IChemistryDAO {
              PreparedStatement statement = connection.prepareStatement(script)) {
             statement.setString(1, name);
             statement.execute();
-            connection.commit();
+//            connection.commit();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -254,12 +251,12 @@ public class ChemistryDAO implements IChemistryDAO {
         }
         if (cation.getValence() == anion.getValence()) return cation.getNotation() + anion.getNotation();
         if (cation.getValence() == 1) {
-            return cation.getNotation() + "<sub>" + anion.getValence() + "</sub>" + anion.getNotation();
+            return "%s<sub>%d</sub>%s".formatted(cation.getNotation(),anion.getValence(),anion.getNotation());
         }
         if (anion.getValence() == 1) {
-            return cation.getNotation() + anion.getNotation() + "<sub>" + cation.getValence() + "</sub>";
+            return "%s%s<sub>%d</sub>".formatted(cation.getNotation(),anion.getNotation(), cation.getValence());
         } else {
-            return cation.getNotation() + "<sub>" + anion.getValence() + "</sub>" + anion.getNotation() + "<sub>" + cation.getValence() + "</sub>";
+            return "%s<sub>%d</sub>%s<sub>%d</sub>".formatted(cation.getNotation(), anion.getValence(), anion.getNotation(), cation.getValence());
         }
     }
 
@@ -267,6 +264,6 @@ public class ChemistryDAO implements IChemistryDAO {
         if (!ion.isConsistent()) {
             throw new IllegalArgumentException("You should use different types of ions!");
         }
-        return ion.getNotation() + "<sup>" + (Ion.CATION_TYPE.equalsIgnoreCase(ion.getType()) ? "+" : "-").repeat(ion.getValence()) + "</sup>";
+        return "%s<sup>%s</sup>".formatted(ion.getNotation(), Ion.CATION_TYPE.equalsIgnoreCase(ion.getType()) ? "+" : "-").repeat(ion.getValence());
     }
 }

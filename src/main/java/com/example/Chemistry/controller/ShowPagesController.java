@@ -26,10 +26,7 @@ public class ShowPagesController {
     public String index(Model model, HttpServletRequest request) {
         Substance substance = Substance.builder().build();
         model.addAttribute("substanceToDelete", substance);
-
-        List<Substance> substances = dao.readSubstances();
-        request.setAttribute("substances", substances);
-
+        request.setAttribute("substances", dao.readSubstances());
         return "index";
     }
 
@@ -47,10 +44,7 @@ public class ShowPagesController {
     public String showClasses(Model model, HttpServletRequest request) {
         SubstanceClass substanceClass = SubstanceClass.builder().build();
         model.addAttribute("classToDelete", substanceClass);
-
-        List<SubstanceClass> substanceClasses = dao.readSubstanceClasses();
-        request.setAttribute("classes", substanceClasses);
-
+        request.setAttribute("classes", dao.readSubstanceClasses());
         return "classes/main";
     }
 
@@ -58,9 +52,7 @@ public class ShowPagesController {
     public String showIons(Model model, HttpServletRequest request) {
         Ion ionToDelete = Ion.builder().build();
         model.addAttribute("ionToDelete", ionToDelete);
-
-        List<Ion> ions = dao.readIons();
-        request.setAttribute("ions", ions);
+        request.setAttribute("ions", dao.readIons());
 
         return "ions/main";
     }
@@ -79,16 +71,13 @@ public class ShowPagesController {
 
     @GetMapping(value = {"/substances/create"})
     public String showCreateSubstance(Model model, HttpServletRequest request) {
-
         List<SubstanceClass> substanceClasses = dao.readSubstanceClasses();
         List<Ion> anions = dao.readIons().stream().filter(ion->Ion.ANION_TYPE.equals(ion.getType())).collect(Collectors.toList());
         List<Ion> cations = dao.readIons().stream().filter(ion->Ion.CATION_TYPE.equals(ion.getType())).collect(Collectors.toList());
         request.setAttribute("classes", substanceClasses);
         request.setAttribute("anions", anions);
         request.setAttribute("cations", cations);
-
         model.addAttribute("substanceForm", CreateSubstanceForm.builder().build());
-
         return "substances/create";
     }
 }
