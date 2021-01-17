@@ -19,25 +19,6 @@ import java.util.List;
 public class ChemistryDAO implements IChemistryDAO {
     private static final Logger log = LogManager.getLogger(ChemistryDAO.class);
 
-    private static Ion readIonFromResultSet(ResultSet resultSet) throws SQLException {
-        Ion ion = Ion.builder()
-                .id(resultSet.getInt("id"))
-                .type(resultSet.getString("type"))
-                .notation(resultSet.getString("notation"))
-                .valence(resultSet.getInt("valence"))
-                .build();
-        ion.setNotation(resolveIon(ion));
-//        log.info("Substance {} added", substance.getFormulaId());
-        return ion;
-    }
-
-    private static SubstanceClass readSubstanceClassFromResultSet(ResultSet resultSet) throws SQLException {
-        return SubstanceClass.builder()
-                .id(resultSet.getInt("id"))
-                .name(resultSet.getString("name"))
-                .build();
-    }
-
     @Override
     public List<Ion> readIons() {
         List<Ion> result = new ArrayList<>();
@@ -50,7 +31,7 @@ public class ChemistryDAO implements IChemistryDAO {
              PreparedStatement statement = connection.prepareStatement(script);
              ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
-                result.add(ChemistryDAO.readIonFromResultSet(resultSet));
+                result.add(readIonFromResultSet(resultSet));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -70,32 +51,12 @@ public class ChemistryDAO implements IChemistryDAO {
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                result.add(ChemistryDAO.readSubstanceClassFromResultSet(resultSet));
+                result.add(readSubstanceClassFromResultSet(resultSet));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return result;
-    }
-
-    private static Substance readSubstanceFromResultSet(ResultSet resultSet) throws SQLException {
-        Ion cation = Ion.builder()
-                .type(Ion.CATION_TYPE)
-                .valence(resultSet.getInt("cation_valence"))
-                .notation(resultSet.getString("cation_notation"))
-                .build();
-        Ion anion = Ion.builder()
-                .type(Ion.ANION_TYPE)
-                .valence(resultSet.getInt("anion_valence"))
-                .notation(resultSet.getString("anion_notation"))
-                .build();
-        String formula = resolveFormula(cation, anion);
-        return Substance.builder()
-                .id(resultSet.getInt("id"))
-                .formula(formula)
-                .notation(resultSet.getString("notation"))
-                .className(resultSet.getString("className"))
-                .build();
     }
 
     @Override
@@ -108,7 +69,7 @@ public class ChemistryDAO implements IChemistryDAO {
              PreparedStatement statement = connection.prepareStatement(script);
              ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
-                result.add(ChemistryDAO.readSubstanceFromResultSet(resultSet));
+                result.add(readSubstanceFromResultSet(resultSet));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -245,7 +206,46 @@ public class ChemistryDAO implements IChemistryDAO {
         }
     }
 
-    private static String resolveFormula(Ion cation, Ion anion) {
+    private Ion readIonFromResultSet(ResultSet resultSet) throws SQLException {
+        Ion ion = Ion.builder()
+                .id(resultSet.getInt("id"))
+                .type(resultSet.getString("type"))
+                .notation(resultSet.getString("notation"))
+                .valence(resultSet.getInt("valence"))
+                .build();
+        ion.setNotation(resolveIon(ion));
+//        log.info("Substance {} added", substance.getFormulaId());
+        return ion;
+    }
+
+    private SubstanceClass readSubstanceClassFromResultSet(ResultSet resultSet) throws SQLException {
+        return SubstanceClass.builder()
+                .id(resultSet.getInt("id"))
+                .name(resultSet.getString("name"))
+                .build();
+    }
+
+    private Substance readSubstanceFromResultSet(ResultSet resultSet) throws SQLException {
+        Ion cation = Ion.builder()
+                .type(Ion.CATION_TYPE)
+                .valence(resultSet.getInt("cation_valence"))
+                .notation(resultSet.getString("cation_notation"))
+                .build();
+        Ion anion = Ion.builder()
+                .type(Ion.ANION_TYPE)
+                .valence(resultSet.getInt("anion_valence"))
+                .notation(resultSet.getString("anion_notation"))
+                .build();
+        String formula = resolveFormula(cation, anion);
+        return Substance.builder()
+                .id(resultSet.getInt("id"))
+                .formula(formula)
+                .notation(resultSet.getString("notation"))
+                .className(resultSet.getString("className"))
+                .build();
+    }
+
+    private String resolveFormula(Ion cation, Ion anion) {
         if (!cation.isConsistent() || !anion.isConsistent()) {
             throw new IllegalArgumentException("You should use different types of ions!");
         }
@@ -260,7 +260,7 @@ public class ChemistryDAO implements IChemistryDAO {
         }
     }
 
-    private static String resolveIon(Ion ion) {
+    private String resolveIon(Ion ion) {
         if (!ion.isConsistent()) {
             throw new IllegalArgumentException("You should use different types of ions!");
         }
