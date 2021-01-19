@@ -7,10 +7,9 @@
 </head>
 <body>
 <div th:insert="top-plate :: top-plate"></div>
-<a th:if="${session.isAdmin}" th:href="@{/classes/create}" style="margin-bottom: 10px"><span th:text="#{links.create}"></span></a>
-
 <form th:object="${classToDelete}" method="post" action="/classes/main">
-    <input th:if="${session.isAdmin}" type="submit" th:value="#{submit.delete}">
+    <a class="button" th:if="${session.isAdmin}" th:href="@{/classes/create}" style="margin-bottom: 10px" th:text="#{links.create}"></a>
+    <input  class="button" th:if="${session.isAdmin}" type="submit" th:value="#{submit.delete}">
     <fieldset>
         <legend th:text="#{entries}"></legend>
         <div class="wrapper">

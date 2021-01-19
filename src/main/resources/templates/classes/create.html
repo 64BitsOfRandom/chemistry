@@ -7,9 +7,9 @@
 </head>
 <body>
 <div th:insert="top-plate :: top-plate"></div>
-<h4 th:if="${session.isAdmin}"><span th:text="#{section.creation}"></span></h4>
 
 <form th:object="${substanceClass}" method="post" action="/classes/create">
+    <h4 th:if="${session.isAdmin}"><span class="button" th:text="#{section.creation}"></span></h4>
     <table>
         <tr>
             <td><label for="input-class-name" th:text="#{header.name}"></label></td>

@@ -9,12 +9,12 @@
     <table style="width: 100%">
         <tr>
             <td>
-                <a th:href="@{/ions/main}"><span th:text="#{map.ions}"></span></a>
-                <a th:href="@{/classes/main}"><span th:text="#{map.classes}"></span></a>
-                <a th:href="@{/index}"><span th:text="#{map.substances}"></span></a>
+                <a class="button" th:href="@{/ions/main}"><span th:text="#{map.ions}"></span></a>
+                <a class="button" th:href="@{/classes/main}"><span th:text="#{map.classes}"></span></a>
+                <a class="button" th:href="@{/index}"><span th:text="#{map.substances}"></span></a>
             </td>
             <td style="text-align:right">
-                <a th:href="${session.isAdmin} ? @{/logout} : @{/login} "><span th:text="${session.isAdmin} ? #{map.logout} : #{map.login}"></span></a>
+                <a class="button" th:href="${session.isAdmin} ? @{/logout} : @{/login} "><span th:text="${session.isAdmin} ? #{map.logout} : #{map.login}"></span></a>
             </td>
         </tr>
     </table>

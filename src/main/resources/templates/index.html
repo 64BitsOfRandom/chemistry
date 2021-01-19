@@ -8,11 +8,12 @@
 <body>
 
 <div th:insert="top-plate :: top-plate"></div>
-<a th:href="@{/substances/create}" style="margin-bottom: 10px"><span th:text="#{links.create}"></span></a>
-<!--<div th:if="${substances.empty}"><h3 th:text="#{inavailable.substances}"></h3></div>-->
+
+<div th:if="${substances.empty}"><h3 th:text="#{inavailable.substances}"></h3></div>
 
 <form th:object="${substanceToDelete}" method="post" action="/index">
-    <input type="submit" th:value="#{submit.delete}">
+    <a class="button" th:href="@{/substances/create}" style="margin-bottom: 10px"><span th:text="#{links.create}"></span></a>
+    <input class="button" type="submit" th:value="#{submit.delete}">
     <table>
         <tr>
             <th><span th:text="#{header.formula}"></span></th>
