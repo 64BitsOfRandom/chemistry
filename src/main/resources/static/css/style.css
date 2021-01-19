@@ -10,42 +10,7 @@ form {
 
 .site-map {
     width: 60%;
-    background: #d3d3d3;
-    margin-bottom: 10px;
-    padding: 0 2px 2px 2px;
 }
-
-/* у таблиц отображаются внутренние границы между ячейками */
-
-/*table {*/
-/*    border-collapse: collapse;*/
-/*    margin-top: 10px;*/
-/*    margin-bottom: 10px;*/
-/*}*/
-
-/*table td, table th {*/
-/*    border: 1px solid black;*/
-/*    padding-left: 10px;*/
-/*    padding-right: 10px;*/
-/*}*/
-
-/*table tr:first-child th {*/
-/*    border-top: 0;*/
-/*}*/
-
-/*table tr:last-child td {*/
-/*    border-bottom: 0;*/
-/*}*/
-
-/*table tr td:first-child, table tr th:first-child {*/
-/*    border-left: 0;*/
-/*}*/
-
-/*table tr td:last-child, table tr th:last-child {*/
-/*    border-right: 0;*/
-/*}*/
-
-/* сетка объектов классов, ионов на их главных страницах */
 
 .wrapper {
     display: grid;
@@ -108,7 +73,7 @@ table {
     box-shadow: inset 0 1px 0 #fff;
     font-size: 12px;
     line-height: 24px;
-    margin: 30px auto;
+    margin: 16px auto;
     text-align: left;
     width: 800px;
 }
