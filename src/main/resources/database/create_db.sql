@@ -1,15 +1,15 @@
 CREATE TABLE  IF NOT EXISTS classes
 (
     id   INTEGER IDENTITY PRIMARY KEY,
-    name VARCHAR(32)
+    name VARCHAR(32) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS ions
 (
     id       INTEGER IDENTITY PRIMARY KEY,
-    valence  INTEGER NOT NULL,
+    valence  INTEGER DEFAULT 1,
     notation VARCHAR(32) UNIQUE,
-    type     VARCHAR(32)
+    type     VARCHAR(32) NOT NULL
 );
 CREATE TABLE  IF NOT EXISTS formulas
 (
