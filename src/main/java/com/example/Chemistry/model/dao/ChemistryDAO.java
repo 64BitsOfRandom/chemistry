@@ -36,6 +36,8 @@ public class ChemistryDAO implements IChemistryDAO {
     private String updateIonScript;
     @Value("${delete.ion}")
     private String deleteIonScript;
+    @Value("${delete.substanceClass}")
+    private String deleteSubstanceClassScript;
     @Value("${delete.substanceFormula}")
     private String deleteSubstanceFormulaProcedure;
 
@@ -161,7 +163,7 @@ public class ChemistryDAO implements IChemistryDAO {
     public void deleteSubstanceClass(int id) {
         log.info("deleteSubstanceClass invoked");
         try (Connection connection = DatabaseConnector.getConnection();
-             PreparedStatement statement = connection.prepareStatement(deleteIonScript)) {
+             PreparedStatement statement = connection.prepareStatement(deleteSubstanceClassScript)) {
             statement.setInt(1, id);
             statement.execute();
         } catch (SQLException e) {
